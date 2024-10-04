@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>DM Adesivos</title>
+        <title>aristeurefrigeracao</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/ICONE.png" />
         <!-- Bootstrap icons-->
@@ -14,42 +14,43 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
-    <!-- Navigation-->
-    <nav class="fullscreen-image"><!-- navbar-custom-top-header -->
-      <div class="container px-5">
-        <div class="row">
-          <div class="col">
-            <a href="index.html" class="navbar-brand">
-              <img width="65px" src="assets/ICONE.png" alt="Campos"> 
-            </a>
-          </div>
-          <div class="col">
-            <div class="d-flex align-items-center">
-              <!-- Ícones de redes sociais -->
-              <a href="https://www.facebook.com/dm.adesivoss" target="_blank" class="social-icon me-2">
-                <span class="social-ico-icon">
-                    <i class="bi bi-facebook"></i>
-                </span>
-              </a>
-              <a href="https://api.whatsapp.com/message/3W6RV5ZMBSXMO1?autoload=1&app_absent=0" target="_blank" class="social-icon me-2">
-                <span class="social-ico-icon">
-                    <i class="bi bi-whatsapp"></i>
-                </span>
-              </a>
-              <a href="https://www.instagram.com/dmadesivoss/" target="_blank" class="social-icon me-2">
-                <span class="social-ico-icon">
-                    <i class="bi bi-instagram"></i>
-                </span>
-              </a>
-              <!-- Botão Carrinho -->
-              <form style="display: flex !important;" action="carrinho.html"> 
-                <button class="custom-button btn-lg" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="d-none d-lg-inline">Carrinho</span> <!-- Oculta o texto em dispositivos móveis -->
-                    <span class="badge" id="badgeCart">0</span>
-                </button>
-              </form>
+      <!-- Navigation-->
+      <nav class="navbar navbar-expand-lg bg-body-tertiary fullscreen-image"><!-- navbar-custom-top-header -->
+        <div class="container px-5 FlexBox d-flex align-items-center">
+          <a href="index.html" class="navbar-brand">
+            <img width="150vw" src="assets/assets_img/CamadaAR.png" alt="Campos"> 
+          </a>
+          <!-- BUTTON COLLAPSE -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <form style="display: flex !important;" action="carrinho.html"> 
+            <button class="custom-button btn-lg" type="submit">
+                <i class="bi-cart-fill me-1"></i>
+                <span class="d-none d-lg-inline">Carrinho</span> <!-- Oculta o texto em dispositivos móveis -->
+                <span class="badge" id="badgeCart">0</span>
+            </button>
+          </form> 
+          <!-- COLLAPSE -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-right-custom-top-header">
+              <div class="search-form-custom-top-header">
+                <input id="inputPesquisa" type="text" placeholder="  Buscar..." style="border-radius: 20px; border: 2px solid #090db7;">
+                <button class="btn btn-success my-2 my-sm-0 rounded-circle" style="width: 40px; height: 40px; background-color: #090db7; margin-left: 12px !important;" onclick="loja.metodos.obterItensPorPesquisa()"><i class="bi-search"></i></button>
+              </div>
             </div>
+            <ul class="navbar-nav px-4">
+              <!-- Ícones de redes sociais -->
+              <li class="nav-item">
+                
+              </li>
+              <li class="nav-item">
+                
+              </li>
+              <li class="nav-item">
+                
+              </li>
+            </ul>
           </div>
         </div>
       </nav>
@@ -92,13 +93,21 @@
             <!--<li><a href="#" id="ver_mais_link">Ver mais</a></li>-->
           </ul>
         </div>
-
-        <div class="navbar-right-custom-top-header">
-          <div class="search-form-custom-top-header">
-            <input id="inputPesquisa" type="text" placeholder="  Buscar..." style="border-radius: 20px; border: 2px solid #090db7;">
-            <button class="btn btn-success my-2 my-sm-0 rounded-circle" style="width: 40px; height: 40px; background-color: #090db7; margin-left: 12px !important;" onclick="loja.metodos.obterItensPorPesquisa()"><i class="bi-search"></i></button>
-          </div>
-        </div>
+        <!-- <a href="#"  aria-current="page" target="_blank" class="social-icon me-2">
+          <span class="social-ico-icon">
+              <i class="bi bi-facebook"></i>
+          </span>
+        </a>
+        <a href="#" target="_blank" class="social-icon me-2">
+          <span class="social-ico-icon">
+              <i class="bi bi-whatsapp"></i>
+          </span>
+        </a>
+        <a href="#" target="_blank" class="social-icon me-2">
+          <span class="social-ico-icon">
+              <i class="bi bi-instagram"></i>
+          </span>
+        </a> -->
       </nav>
           
         <style>/* Reset CSS */
@@ -123,11 +132,12 @@
             display: flex;
             justify-content: space-around;
             padding: 25px 40px;
-            background-color: #F8F9FA;
+            background-color: #1B2D51;
             color: #fff;
             align-items: center;
             z-index: 1;
           }
+          
           
           .nav-links-custom-top-header {
             list-style: none;
@@ -147,9 +157,9 @@
           }
 
           .nav-links-custom-top-header li :hover {
-            background-color: #2a2de5; /* Cor de fundo da badge */
-            color: #fff; /* Cor do texto da badge */
-            border-radius: 10px; /* Bordas arredondadas da badge */
+            /*background-color: #2a2de5;  Cor de fundo da badge */
+            color: #899BCE; /* Cor do texto da badge */
+            /*border-radius: 10px;  Bordas arredondadas da badge */
           }
           
           .nav-links-custom-top-header li:last-child {
@@ -158,7 +168,7 @@
           
           .nav-links-custom-top-header a {
 
-            color: #090db7; /* Cor verde */
+            color: #fff; /* Cor verde */
             transition: color 0.3s ease; /* Transição suave */
             text-decoration: none;
             padding: 2vw;
