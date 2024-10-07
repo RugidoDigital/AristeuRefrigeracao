@@ -4662,7 +4662,7 @@ textarea.form-control-lg {
   font-size: var(--bs-badge-font-size);
   font-weight: var(--bs-badge-font-weight);
   line-height: 1;
-  color: var(--bs-badge-color);
+  color: var(--bs-danger);
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
@@ -10961,7 +10961,7 @@ textarea.form-control-lg {
 
 .btn-cart-control {
   cursor: pointer;
-  background-color: #D7A41C;
+  background-color: #1B2D51;
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -10969,7 +10969,7 @@ textarea.form-control-lg {
 }
 
 .btn-cart-control:hover {
-  background-color: #B88C17;
+  background-color: #dc3545;
 }
 
 .quantity-label {
@@ -11303,7 +11303,7 @@ form {
 }
 .custom-button {
   text-decoration: none;
-  background-color: #090db7;
+  background-color: var(--bs-danger);
   color: white;
   border: none;
   padding: 5px 10px;
@@ -11315,8 +11315,8 @@ form {
 }
 
 .custom-button:hover {
-  color: #090db7;
-  border-color: #090db7;
+  color: var(--bs-gray-800);
+  border-color: var(--bs-gray-800);
   background-color: white;
 }
 
@@ -11332,7 +11332,7 @@ form {
 
 .badge {
   background-color: white;
-  color: #090db7;
+  color: var(--bs-gray-800);
   border-radius: 10px;
   font-size: 0.9em;
 }
@@ -11420,12 +11420,12 @@ form {
   display: none; /* Inicialmente escondido */
   position: fixed;
   /* top: 250px; */
-  bottom: 50px;
+  bottom: 150px;
   /* right: 20px; */
   right: 20px;
   width: 50px;
   height: 50px;
-  background-color: #ffcc00;
+  background-color: var(--bs-danger);
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -11437,7 +11437,7 @@ form {
 }
 
 .float-button:hover {
-  background-color: #e6b800;
+  background-color: var(--bs-danger);
 }
 
 .feedback-busca-no-items p {
@@ -11521,4 +11521,226 @@ img {vertical-align: middle;}
 /* On smaller screens, decrease text size */
 @media only screen and (max-width: 300px) {
   .text {font-size: 11px}
+}
+
+#presentation{
+  width: 480px;
+  height: 120px;
+  padding: 20px;
+  margin: auto;
+  background: #FFF;
+  margin-top: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); 
+  transition: all 0.3s; 
+  border-radius: 3px;
+}
+
+#presentation:hover{
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  transition: all 0.3s;
+  transform: translateZ(10px);
+}
+
+#floating-button{
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: #00009A ;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  cursor: pointer;
+  box-shadow: 0px 2px 5px #666;
+}
+
+.plus{
+  color: white;
+  position: absolute;
+  top: 0;
+  display: block;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  line-height: 55px;
+  font-size: 38px;
+  font-family: 'Roboto';
+  font-weight: 300;
+  animation: plus-out 0.3s;
+  transition: all 0.3s;
+}
+
+#container-floating{
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  bottom: 30px;
+  right: 30px;
+  z-index: 50;
+
+}
+
+#container-floating:hover{
+  height: 400px;
+  width: 90px;
+  padding: 30px;
+}
+
+#container-floating:hover .plus{
+  animation: plus-in 0.15s linear;
+  animation-fill-mode: forwards;
+}
+
+.edit{
+  position: absolute;
+  top: 0;
+  display: block;
+  bottom: 0;
+  left: 0;
+  display: block;
+  right: 0;
+  padding: 0;
+  opacity: 0;
+  margin: auto;
+  line-height: 65px;
+  transform: rotateZ(-70deg);
+  transition: all 0.3s;
+  animation: edit-out 0.3s;
+}
+
+#container-floating:hover .edit{
+  animation: edit-in 0.2s;
+   animation-delay: 0.1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes edit-in{
+    from {opacity: 0; transform: rotateZ(-70deg);}
+    to {opacity: 1; transform: rotateZ(0deg);}
+}
+
+@keyframes edit-out{
+    from {opacity: 1; transform: rotateZ(0deg);}
+    to {opacity: 0; transform: rotateZ(-70deg);}
+}
+
+@keyframes plus-in{
+    from {opacity: 1; transform: rotateZ(0deg);}
+    to {opacity: 0; transform: rotateZ(180deg);}
+}
+
+@keyframes plus-out{
+    from {opacity: 0; transform: rotateZ(180deg);}
+    to {opacity: 1; transform: rotateZ(0deg);}
+}
+
+.nds{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: fixed;
+  z-index: 300;
+  transform:  scale(0);
+  cursor: pointer;
+}
+.nd2{
+  background: #009900 ;
+  right: 25px;
+  bottom: 120px;
+  animation-delay: 0.2s;
+    animation: bounce-out-nds 0.3s linear;
+  animation-fill-mode:  forwards;
+}
+
+.nd3{
+  /*background: #3c80f6;*/
+  background: var(--bs-link-hover-color);
+  right: 25px;
+  bottom: 180px;
+  animation-delay: 0.15s;
+    animation: bounce-out-nds 0.15s linear;
+  animation-fill-mode:  forwards;
+}
+
+.nd4{
+  background: #CC0066 ;
+  right: 25px;
+  bottom: 240px;
+  animation-delay: 0.1s;
+    animation: bounce-out-nds 0.1s linear;
+  animation-fill-mode:  forwards;
+}
+
+.nd5{
+  background-image: url('');
+  background-size: 100%;
+  right: 25px;
+  bottom: 300px;
+  animation-delay: 0.08s;
+  animation: bounce-out-nds 0.1s linear;
+  animation-fill-mode:  forwards;
+}
+
+@keyframes bounce-nds{
+    from {opacity: 0;}
+    to {opacity: 1; transform: scale(1);}
+}
+
+@keyframes bounce-out-nds{
+    from {opacity: 1; transform: scale(1);}
+    to {opacity: 0; transform: scale(0);}
+}
+
+#container-floating:hover .nds{
+  
+  animation: bounce-nds 0.1s linear;
+  animation-fill-mode:  forwards;
+}
+
+#container-floating:hover .nd3{
+  animation-delay: 0.08s;
+}
+#container-floating:hover .nd4{
+  animation-delay: 0.15s;
+}
+#container-floating:hover .nd5{
+  animation-delay: 0.2s;
+}
+
+.letter{
+  font-size: 23px;
+  font-family: 'Roboto';
+  color: white;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  line-height: 40px;
+}
+
+.reminder{
+  filter: grayscale(100%);
+  height: 50%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  line-height: 40px;
+}
+
+.profile{
+  border-radius: 50%;
+  width: 40px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 20px;
 }

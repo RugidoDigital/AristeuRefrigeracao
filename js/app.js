@@ -6,16 +6,33 @@ const button = document.getElementById("float-button-carrinho");
 
     button.onclick = function() {
         window.location.href = "carrinho.html";
-    };
+};
 
 window.onscroll = function() {
+    var header = document.getElementById("filtro"); // Barra-Fixa da navbar id='fildro'
+    var sticky = header.offsetTop; // Barra-Fixa
+
     var floatButton = document.querySelector('.float-button');
-    if (document.documentElement.scrollTop > 200) { // Exibe o botão após rolar 200px
-        floatButton.style.display = 'block';
+    if (document.documentElement.scrollTop > 90 && window.pageYOffset > sticky) { // Exibe o botão após rolar 200px
+        floatButton.style.display = 'block'; // Botao carrinho float (habilitado)
+        header.classList.add("sticky"); // Navbar fixa (Ativado)
     } else {
-        floatButton.style.display = 'none';
+        floatButton.style.display = 'none'; // Botao carrinho float (desabilitado)
+        header.classList.remove("sticky"); // Navbar fixa (Desativado)
     }
 };
+
+// Barra fixa no tela inicial
+// window.onscroll = function() {myFunction()};
+// var header = document.getElementById("filtro");
+// var sticky = header.offsetTop;
+// function myFunction() {
+//   if (window.pageYOffset > sticky) {
+//     header.classList.add("sticky");
+//   } else {
+//     header.classList.remove("sticky");
+//   }
+// }
 
 // Carousel na tela inicial
 // function showSlides() {
@@ -35,18 +52,6 @@ window.onscroll = function() {
 //     dots[slideIndex-1].className += " active";
 //     setTimeout(showSlides, 2000); // Change image every 2 seconds
 // }
-
-// Barra fixa no tela inicial
-window.onscroll = function() {myFunction()};
-var header = document.getElementById("filtro");
-var sticky = header.offsetTop;
-function myFunction() {
-  if (window.pageYOffset > sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}
 
 var itemExibidosNoMenu = [];
 
@@ -403,21 +408,26 @@ document.addEventListener("DOMContentLoaded", function() {
         resetDropdown();
     }
 
-    dropdownButton.addEventListener("click", function(event) {
-        event.stopPropagation(); 
-        dropdownMenu.classList.contains("show") ? hideDropdown() : showDropdown();
-        if (!dropdownMenu.classList.contains("show")) { // Salvando o estado dos checkboxes ao fechar o dropdown
-            saveCheckboxStates();
-        } else { // Restaurando o estado dos checkboxes ao abrir o dropdown
-            restoreCheckboxStates();
-        }
+    document.addEventListener("DOMContentLoaded", function() {
+        // Função de clique
+        dropdownButton.addEventListener("click", function(event) {
+            event.stopPropagation(); 
+            dropdownMenu.classList.contains("show") ? hideDropdown() : showDropdown();
+            if (!dropdownMenu.classList.contains("show")) { // Salvando o estado dos checkboxes ao fechar o dropdown
+                saveCheckboxStates();
+            } else { // Restaurando o estado dos checkboxes ao abrir o dropdown
+                restoreCheckboxStates();
+            }
+        });
     });
 
     // Evento de clique fora do dropdown para fechá-lo
-    document.addEventListener("click", function(event) {
-        if (!dropdownMenu.contains(event.target) && !dropdownButton.contains(event.target)) {
-            hideDropdown();
-        }
+    document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("click", function(event) {
+            if (!dropdownMenu.contains(event.target) && !dropdownButton.contains(event.target)) {
+                hideDropdown();
+            }
+        });
     });
 
 
@@ -511,8 +521,8 @@ function removerAcentos(texto) {
   }
 
 
-// Função para construir o objeto com as categorias e suas subcategorias
-function getCategoriasSelecionadas() {
+    // Função para construir o objeto com as categorias e suas subcategorias
+    function getCategoriasSelecionadas() {
     var categoriasSelecionadas = {}; // Objeto para armazenar as categorias e suas subcategorias
 
     // Obtém todas as categorias selecionadas
@@ -532,28 +542,8 @@ function getCategoriasSelecionadas() {
     return categoriasSelecionadas;
 }
 
-// Evento de clique no botão "Buscar"
-document.querySelector(".dropdown-btn").addEventListener("click", function() {
-    var dropdownMenu = document.getElementById("dropdown-menu");
-    dropdownMenu.classList.remove("show");
-
-    var categoriasSelecionadas = getCategoriasSelecionadas(); // Obtém as categorias e suas subcategorias selecionadas
-
-    console.log("Categorias selecionadas:", categoriasSelecionadas);
-
-    var itensFiltrados = filtrarBaseDeDados(categoriasSelecionadas); // Filtra a base de dados com base nas subcategorias selecionadas
-    console.log("itens filtrados", itensFiltrados); 
-    
-    if(itensFiltrados.length == 0){
-        loja.metodos.feedBackBuscaFalha();
-    }else{
-        itemExibidosNoMenu = itensFiltrados;
-        loja.metodos.obterItensLoja(true);
-    }
-});
-
-// Função para filtrar a base de dados com base nas categorias e subcategorias selecionadas
-function filtrarBaseDeDados(categoriasSelecionadas) {
+    // Função para filtrar a base de dados com base nas categorias e subcategorias selecionadas
+    function filtrarBaseDeDados(categoriasSelecionadas) {
     var filteredData = [];
 
     MENU.forEach(function(item) {
@@ -566,6 +556,26 @@ function filtrarBaseDeDados(categoriasSelecionadas) {
             if (subcategorias.includes(subcategoriasItem)) {
                 filteredData.push(item); // Adiciona o item filtrado ao array
             }
+        }
+    });
+
+    // Evento de clique no botão "Buscar"
+    document.querySelector(".dropdown-btn").addEventListener("click", function() {
+        var dropdownMenu = document.getElementById("dropdown-menu");
+        dropdownMenu.classList.remove("show");
+
+        var categoriasSelecionadas = getCategoriasSelecionadas(); // Obtém as categorias e suas subcategorias selecionadas
+
+        console.log("Categorias selecionadas:", categoriasSelecionadas);
+
+        var itensFiltrados = filtrarBaseDeDados(categoriasSelecionadas); // Filtra a base de dados com base nas subcategorias selecionadas
+        console.log("itens filtrados", itensFiltrados); 
+        
+        if(itensFiltrados.length == 0){
+            loja.metodos.feedBackBuscaFalha();
+        }else{
+            itemExibidosNoMenu = itensFiltrados;
+            loja.metodos.obterItensLoja(true);
         }
     });
 
