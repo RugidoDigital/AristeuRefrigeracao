@@ -77,7 +77,6 @@ var carrinhoDeCompras = {
         let total = this.itens.length;
         document.getElementById('badgeCart').innerText = this.itens.length; // Redireciona a quant. de itens no carrinho para o id="badgeCart"
         return total;
-        
     },
 
     // Atualizar o carrinho na interface do usuário

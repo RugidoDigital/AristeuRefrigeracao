@@ -2,6 +2,21 @@ document.addEventListener("DOMContentLoaded", function() {
     loja.eventos.init();
 });
 
+const button = document.getElementById("float-button-carrinho");
+button.onclick = function() {
+    window.location.href = "carrinho.html";
+};
+
+window.onscroll = function() {
+
+    var floatButton = document.querySelector('.float-button');
+    if (document.documentElement.scrollTop > 100) { // Exibe o botão após rolar 200px
+        floatButton.style.display = 'block'; // Botao carrinho float (habilitado)
+    } else {
+        floatButton.style.display = 'none'; // Botao carrinho float (desabilitado)
+    }
+};
+
 var loja = {};
 
 loja.eventos = {
@@ -11,7 +26,7 @@ loja.eventos = {
         loja.metodos.obterItemSelecionado();
         carrinhoDeCompras.carregarCarrinho();
         loja.metodos.atualizarBadge(carrinhoDeCompras.calcularTotalQuantidade());
-        loja.metodos.obterProdutosCarrinho();
+        // loja.metodos.obterProdutosCarrinho();
         loja.metodos.atualizarPreco();
     }
 }
@@ -20,7 +35,7 @@ loja.metodos = {
 
     obterItemSelecionado:() =>{
         let string = sessionStorage.getItem('item_data')
-        let item = string.split(",");
+        const item = string.split(",");
         console.log("Item passado ", item);
         console.log("Item ", item[0]);
 
@@ -43,18 +58,28 @@ loja.metodos = {
     }, 
 
     atualizarPreco: () => {
-        let string = sessionStorage.getItem('item_data')
-        let item = string.split(",");
-        const valorProduto = item[3] // Preço de 1metro do produto chamado da JSON "\${price}"
+    // Obtendo dados do produto do sessionStorage
+    let string = sessionStorage.getItem('item_data');
+    let item = string.split(",");
+    const valorProduto = parseFloat(item[3]); // Preço de 1 metro do produto
 
-        const metragemSelect = parseFloat(document.getElementById('metros').value);
-        const precoTotal = (valorProduto * metragemSelect);
-        
-        // Calculo => precoTotal = (valorProduto * metragemSelect) = passando o resultado na tela
-        document.getElementById('preco').innerText = `${precoTotal.toFixed(2)}`;//Preço total
-        console.log(valorProduto);
-        console.log("Metragem selecionada >>>>>", metragemSelect); // Valor em metros que foi selecionado
-        console.log(precoTotal); // Referênte ao metro
+    // Obtendo a metragem selecionada pelo usuário
+    const metragemSelect = parseFloat(document.getElementById('metros').value);
+
+    // Obtendo a quantidade selecionada pelo usuário
+    const quantidade = parseInt(document.getElementById('inputQuantity').innerText); // Certifique-se de que este campo existe no HTML
+
+    // Calculando o preço total com base na metragem e na quantidade
+    const precoTotal = (valorProduto * metragemSelect * quantidade);
+
+    // Atualizando o valor na tela
+    document.getElementById('preco').innerText = `${precoTotal.toFixed(2)}`; // Preço total formatado
+
+    // Logs para depuração
+    console.log("Valor do produto (por metro):", valorProduto);
+    console.log("Metragem selecionada >>>>>", metragemSelect); // Valor em metros
+    console.log("Quantidade selecionada >>>>>", quantidade); // Quantidade de itens
+    console.log("Preço total >>>>>", precoTotal); // Preço total calculado
     },
 
     // Atualizar o carrinho na interface do usuário
@@ -109,12 +134,13 @@ loja.metodos = {
         id = (parseInt(value)) - 1
         var itemParaAdicionar = MENU[id];
         carrinhoDeCompras.adicionarItem({
-        img: itemParaAdicionar.img,
-        id: itemParaAdicionar.id,
-        name: itemParaAdicionar.name,
-        preco: itemParaAdicionar.price,
-        quantidade: quantidade,
-        metragemSelect: metragemSelect
+            img: itemParaAdicionar.img,
+            id: itemParaAdicionar.id,
+            name: itemParaAdicionar.name,
+            preco: itemParaAdicionar.price,
+            quantidade: quantidade,
+            metragemSelect: metragemSelect,
+            valUnit: metragemSelect
         });
 
         carrinhoDeCompras.salvarCarrinho();
@@ -127,25 +153,41 @@ loja.metodos = {
 
     atualizarBadge:(value) =>{
         var badgeSpan = document.getElementById('badgeCart');
+        var badgeSpanFloat = document.getElementById('badgeCartFloat');
         badgeSpan.textContent = value;
+        badgeSpanFloat.textContent = value;
     },
 
     obterProdutosCarrinho:() =>{
 
         carrinhoDeCompras.carregarCarrinho();
-        let itens = [];
+        let itens = carrinhoDeCompras.itens || [];
         itens = carrinhoDeCompras.itens;
+
         console.log("Elementos Relacionados ",itens);
 
-        for (var i = 0; i < itens.length; i++) {
-            let temp = loja.templates.itemCarrinho
-                .replace(/\${img}/g, itens[i].img)
-                .replace(/\${name}/g, itens[i].name)
-                .replace(/\${id}/g, itens[i].id)
+        if (loja.templates && loja.templates.item) { // Verifica se o template está definido
+            for (var i = 0; i < itens.length; i++) {
+                // Certifique-se de que todas as propriedades existem
+                let img = itens[i].img || '';  // Valor padrão vazio se não existir
+                let name = itens[i].name || 'Sem nome'; // Nome padrão se não existir
+                let id = itens[i].id || ''; // Valor padrão vazio se não existir
+
+                // Gera o HTML substituindo os valores
+                let temp = loja.templates.item
+                    .replace(/\${img}/g, itens[i].img)
+                    .replace(/\${name}/g, itens[i].name)
+                    .replace(/\${id}/g, itens[i].id)
     
-            // Adiciona os itens ao #itensProdutos
-            console.log("temp ",temp);
-            $("#itensProdutosCarrinho").append(temp);
+                // Adiciona os itens ao #itensProdutos
+                console.log("temp ",temp);
+                $("#itensProdutosCarrinho").append(temp);
+                // Adiciona os itens ao #itensProdutos
+                console.log("temp ", temp);
+                $("#itensProdutosCarrinho").append(temp);
+            }
+        } else {
+            console.error("Template 'itemCarrinho' não encontrado em 'loja.templates'");
         }
     }, 
 
@@ -207,11 +249,18 @@ loja.templates = {  // R$ \${price}
         
 
         <div class="card mb-3" style="border: 0;">
+        <div class="product-actions">
+                                <form class="mb-3" action="index.html">
+                                    <button class="btn btn-outline-dark" type="submit">
+                                        <i class="bi bi-arrow-left-square-fill me-2"></i>
+                                        Continuar Comprando
+                                    </button>
+                                </form> 
+                            </div>
             <div class="row g-0">
                 <div class="col-md-6">
                     <img class="card-img-top mb-5 mb-md-0 img-fluid rounded-start" src="\${img}" alt="..." />
                 </div>
-                
                 <div class="col-md-6">
                     <div class="card-body">
                         <div class="product-header">
@@ -252,9 +301,9 @@ loja.templates = {  // R$ \${price}
                                     </select>
                                 </div>
                             </div>
-                            <div class="product-quantity">
+                            <div class="product-quantity p-2">
                                 <p class="quantity-label-item">Quantidade: </p>
-                                <div class=" quantity-control me-4">
+                                <div class=" quantity-control me-2" onclick="loja.metodos.atualizarPreco(\${id})">
                                     <button class="btn-cart-control btn-subtract me-2" 
                                     onclick="loja.metodos.btnSubtract()"
                                     >-</button>
@@ -263,105 +312,69 @@ loja.templates = {  // R$ \${price}
                                     onclick="loja.metodos.btnAdd()"
                                     >+</button>
                                 </div>
-
-                                <button class="add-to-cart-btn" onclick="loja.metodos.adicionarAoCarrinho(\${id})">
-                                Adicionar ao carrinho</button>
                             </div>
                             <div class="product-description">
                                 <p>Sobre este item</p>
                                 <ul>
-                                    <li>Largura : \${largura}</li>
+                                    <li>Largura: \${largura}</li>
                                     <li>Impermeável</li>
                                     <li>Lavável</li>
                                     <li>Antibacteriano</li>
                                     <li>Auto colante</li>
                                 </ul>
                             </div>
-                            <div class="product-actions">
-                                <form class="mb-3" action="index.html">
-                                    <button class="btn btn-outline-dark" type="submit">
-                                        <i class="bi bi-arrow-left-square-fill me-2"></i>
-                                        Continuar Comprando
-                                    </button>
-                                </form> 
-                            </div>
+                            <button class="add-to-cart-btn tolltip m-2" 
+                                onclick="loja.metodos.adicionarAoCarrinho(\${id})">
+                                <div> Adicionar ao carrinho +<i class="bi-cart-fill me-1"></i></div> 
+                            </button>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Favicon
-        <div class="col-md-6">
-
-            <div class="d-flex">
-                <form class="mb-3" action="index.html">
-                    <button class="btn btn-outline-dark" type="submit">
-                        Voltar
-                    </button>
-                </form>
-
-                <div class="div-quantity-control">
-                    <button class="btn btn-outline-dark flex-shrink-0 me-4" type="button"
-                    onclick="loja.metodos.adicionarAoCarrinho(\${id})">
-                        <i class="bi bi-bag-fill me-1"></i>
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-
-
-            </div>
-
-            <h1 class="display-5 fw-bolder">\${name}</h1>
-
-            <div class="fs-5 mb-5">
-                
-            </div>
-
-            <div class="d-flex">
-
-                                               
-                                
-                <div class="div-quantity-control">
-                    <button class="btn btn-outline-dark flex-shrink-0 me-4" type="button"
-                    onclick="loja.metodos.adicionarAoCarrinho(\${id})">
-                        <i class="bi bi-bag-fill me-1"></i>
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-
-            </div>
-        </div>-->
     `,
 
     itemRelacionado:`
     <div class="col-12 mb-5">
+                        
         <div class="card h-100">
             <!-- Product image-->
-
-            <div class="card-cont">
-            <img class="card-img-top" src="\${img}" alt="..." />
+            <div class="card-title grid">
+                <figure class="effect-milo">
+                    <img class="card-img-top" src="\${img}" alt="..." />
+                    <figcaption>
+                        <div class="product-description">
+                            <h5>Sobre este item:</h5>
+                            <ul>
+                                <li>Largura : \${largura}</li>
+                                <li>Impermeável</li>
+                                <li>Lavável</li>
+                                <li>Antibacteriano</li>
+                                <li>Auto colante</li>
+                            </ul>
+                        </div>
+                    </figcaption>			
+                </figure>
             </div>
-
             <!-- Product details-->
-            <div class="card-body p-4">
+            <div class="card-body p-2">
                 <div class="text-center">
                     <!-- Product name-->
-                    <h5 class="fw-bolder">\${name}</h5>
+                    <h6>\${name}</h6>
                     <!-- Product price-->
-                    <h2 class="fw-bolder">R$ \${price}</h2>
-                    
-                    
+                    <span class="price">
+                        <span class="currency">R$</span>
+                        <span class="value">\${price}</span>
+                    </span>
                 </div>
             </div>
             <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
                 <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}',parseFloat('\${price}'.replace(',','.')),'\${marca}','\${largura}'])"
                 >Comprar</a></div>
             </div>
         </div>
-    </div>
+        </div>
     `
-
 }

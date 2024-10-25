@@ -1,238 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>DM Adesivos</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/ICONE.png" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>DM Adesivos</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/ICONE.png" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
 
-      <!-- Navigation-->
-      <nav class="navbar navbar-expand-lg bg-body-tertiary"><!-- navbar-custom-top-header -->
-        <div class="container px-5 FlexBox d-flex align-items-center p-2">
-          <a href="index.html" class="col navbar-brand">
-              <img width="150vw" src="assets/assets_img/CamadaAR.png" alt="Campos"> 
-          </a>
-          <form style="display: flex !important;" action="carrinho.html">
-            <button type="submit" class="btn position-relative custom-button m-2">
-                <span class="d-none d-lg-inline">Carrinho</span> <!-- Oculta o texto em dispositivos móveis -->
-                <i class="bi-cart-fill me-1"></i>
-                <!-- <span style="background-color: var(--bs-gray-200);" id="badgeCart" class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
-                    <span class="visually-hidden">unread messages</span>
-                </span> -->
-            </button>
-          </form>
-        </div>
-      </nav>
-
-        <section id="Etapa1" class="" >
-
-            <div class="container-mensagens" id="container-mensagens">
-
-            </div>
-            
-            <!-- test section items section-->
-
-            <div class="container-finalizar-compra">
-                <h2 class="fw-bolder mb-4">Endereço de entrega:</h2> 
-                <!--<div class="input-wrapper">
-                    <label for="cep">CEP:</label>
-                    <input type="text" id="txtCEP" name="cep" placeholder="Digite seu CEP" required>
-                      test 
-
-                    <button type="submit">Buscar</button>
-                </div>-->
-                <form>
-                    <div class="input-wrapper">
-                        <label for="cep">Nome:</label>
-                        <input type="text" id="txtNome" name="cep" placeholder="Informe seu Nome" required>
-                    </div>
-                    
-                    <!-- 
-                    <div class="input-wrapper">
-                        <label for="cep">Nome da Empresa:</label>
-                        <input type="text" id="txtEmpresa" name="cep" placeholder="Informe o Nome da sua empresa" required>
-                    </div>-->
-
-                    <div class="input-wrapper">
-                        <label for="cep">Telefone de Conato:</label>
-                        <input type="text" id="txtTelefone" name="cep" placeholder="DD 00000-0000" required>
-                    </div>
-                    
-                    <!-- 
-                    <div class="input-wrapper">
-                        <label for="cep">CEP:</label>
-                        <input type="text" id="txtCEP" name="cep" placeholder="Digite seu CEP" required>
-                    </div>-->
-
-                     
-                    <div class="input-wrapper">
-                        <label for="endereco">Endereço:</label>
-                        <input type="text" id="txtEndereco" name="endereco" placeholder="Digite seu endereço" required>
-                    </div>
-                    <!--
-                    <div class="input-wrapper">
-                        <label for="bairro">Bairro:</label>
-                        <input type="text" id="txtBairro" name="bairro" placeholder="Digite seu bairro" required>
-                    </div>
-                    <div class="input-wrapper">
-                        <label for="cidade">Cidade:</label>
-                        <input type="text" id="txtCidade" name="cidade" placeholder="Digite sua cidade" required>
-                    </div>
-                    <div class="input-wrapper">
-                        <label for="numero">Número:</label>
-                        <input type="text" id="txtNumero" name="numero" placeholder="Digite o número" required>
-                    </div>
-                    <div class="input-wrapper">
-                        <label for="complemento">Complemento:</label>
-                        <input type="text" id="txtComplemento" name="complemento" placeholder="Digite o complemento">
-                    </div>-->
-
-                    <div class="input-wrapper">
-                        <label for="uf">UF:</label>
-                        <select id="ddlUf" name="uf" required>
-                            <option value="">Selecione</option>
-
-                            <!-- test
-                            <option value="AC">AC</option>
-                            <option value="AL">AL</option>
-                            <option value="AP">AP</option> -->
-                            <option value="AM">AM</option>
-
-                            <!-- test 
-                            <option value="BA">BA</option>
-                            <option value="CE">CE</option>
-                            <option value="DF">DF</option>
-                            <option value="ES">ES</option>
-                            <option value="GO">GO</option>
-                            <option value="MA">MA</option>
-                            <option value="MT">MT</option>
-                            <option value="MS">MS</option>
-                            <option value="MG">MG</option>
-                            <option value="PA">PA</option>
-                            <option value="PB">PB</option>
-                            <option value="PR">PR</option>
-                            <option value="PE">PE</option>
-                            <option value="PI">PI</option>
-                            <option value="RJ">RJ</option>
-                            <option value="RN">RN</option>
-                            <option value="RS">RS</option>
-                            <option value="RO">RO</option>
-                            <option value="RR">RR</option>
-                            <option value="SC">SC</option>
-                            <option value="SP">SP</option>
-                            <option value="SE">SE</option>
-                            <option value="TO">TO</option>-->
-                        </select>
-                    </div>
-                </form>
-            </div>
-
-            <section class="py-5 bg-light">
-                    
-                    <div class="container-button-cart">
-
-                        
-                        <button class="btn btn-outline-dark flex-shrink-1 mb-3" style="width: fit-content;"  type="button"
-                                    onclick="loja.metodos.voltar()">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Voltar
-                        </button>
-                              
-                        <button class="btn btn-outline-dark flex-shrink-1 mb-3" style="width: fit-content;"  type="button"
-                                    onclick="loja.metodos.resumoPedido()">
-                                    
-                                    Revisar pedido
-
-                                    <i class="bi-cart-fill me-1"></i>
-                        </button>
-                    
-                    </div>
-
-            </section>
-
-        </section>
-
-        <section id="Etapa2" class="disable">
-        
-            <section class="py-5 bg-light">
-                <div class="container px-4 px-lg-5 mt-5">
-                    <h2 class="fw-bolder mb-4">Resumo do pedido:</h2>
-                    <div id="itensProdutosCarrinho" class="col mr-0 ml-0 animated fadeIn hidden">
-                        <!-- Lista -->
-
-                        <div id="itensProdutosCarrinho" class="col mb-4">
-                            
-                                <!-- Product image-->
-      
-                        </div>
-
-                    </div>
-
-                <div class="container-button-cart">
-                            
-                    
-
-                    <a class="btn btn-outline-dark flex-shrink-1 mb-3"  type="button"
-                                onclick="loja.metodos.etapa1()">
-                                <i class="bi-cart-fill me-1"></i>
-                                Voltar
-                    </a>
-                    
-                    <a id="btnEtapaResumo" class="btn btn-outline-dark flex-shrink-1 mb-3"  type="button" href="">
-                                    
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Enviar Pedido
-                        </a>
-                </div>
-
-            </section>
-
-        </section>
-
-
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-          <div class="container">
-            <div class="text-center" style="text-decoration:none;">
-              <a href="https://www.facebook.com/AristeuRefrigeracao/" target="_blank" class="social-icon-footer">
-                <span class="social-ico-icon">
-                    <i class="text-white bi bi-facebook"></i>
-                </span>
-              </a>
-              <a href="https://api.whatsapp.com/send/?phone=5592984444694&text&type=phone_number&app_absent=0" target="_blank" class="social-icon-footer">
-                <span class="social-ico-icon">
-                    <i class="text-white bi bi-whatsapp"></i>
-                </span>
-              </a>
-              <a href="https://www.instagram.com/aristeurefrigeracao/" target="_blank" class="social-icon-footer">
-                <span class="social-ico-icon">
-                    <i class="text-white bi bi-instagram"></i>
-                </span>
-              </a>
-            </div>
-            <p class="m-0 text-center text-white">Copyright © 2024 Rugido Digital | 
-              <a class="text-white" href="https://www.instagram.com/rgdo.agencia/">
-                Designed by Rugido Digital
-              </a>
-            </p>
+    <!-- Navigation-->
+    <nav class="fullscreen-image"><!-- navbar-custom-top-header -->
+      <div class="container px-6">
+        <div class="row">
+          <div class="col">
+            <a href="index.html" class="navbar-brand">
+              <img width="65px" src="assets/ICONE.png" alt="Campos"> 
+            </a>
           </div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script type="text/javascript" src="js/jquery-3.7.1.js"></script>
-        <script type="text/javascript" src="js/carrinho.js"></script>
-        <script type="text/javascript" src="js/fazerPedido.js"></script>
-        
+          <div class="col">
+            <div class="d-flex align-items-center">
+              <!-- Ícones de redes sociais -->
+              <a href="https://www.facebook.com/dm.adesivoss" target="_blank" class="social-icon me-2">
+                <span class="social-ico-icon">
+                  <i class="bi bi-facebook"></i>
+                </span>
+              </a>
+              <a href="https://api.whatsapp.com/message/3W6RV5ZMBSXMO1?autoload=1&app_absent=0" target="_blank" class="social-icon me-2">
+                <span class="social-ico-icon">
+                  <i class="bi bi-whatsapp"></i>
+                </span>
+              </a>
+              <a href="https://www.instagram.com/dmadesivoss/" target="_blank" class="social-icon me-2">
+                <span class="social-ico-icon">
+                  <i class="bi bi-instagram"></i>
+                </span>
+              </a>
+              <!-- Botão Carrinho -->
+              <form style="display: flex !important;" action="carrinho.html">
+                <button type="submit" class="btn position-relative custom-button m-2">
+                    <span class="d-none d-lg-inline">Carrinho</span> <!-- Oculta o texto em dispositivos móveis -->
+                    <i class="bi-cart-fill me-1"></i>
+                    <!-- <span style="background-color: var(--bs-gray-100);" id="badgeCart" class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                        <span class="visually-hidden">unread messages</span>
+                    </span> -->
+                </button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-    </body>
+    <section id="Etapa1" class="" >
+      <div class="container-mensagens" id="container-mensagens"></div>
+      <!-- test section items section-->
+       <div class="container-finalizar-compra">
+        <h2 class="fw-bolder mb-4">Endereço de entrega: <button class="btn btn-secondary" type="button" onclick="preencherFormulario()">Já sou cliente</button></h2> 
+        <!--<div class="input-wrapper">
+          <label for="cep">CEP:</label>
+          <input type="text" id="txtCEP" name="cep" placeholder="Digite seu CEP" required>
+          test 
+          button type="submit">Buscar</button>
+        </div>-->
+        <form>
+          <div class="input-wrapper">
+            <label for="txtNome">Nome:</label>
+            <input type="text" id="txtNome" name="txtNome" placeholder="Informe seu Nome" autocomplete="on" required>
+          </div>
+          <!-- 
+          <div class="input-wrapper">
+            <label for="cep">Nome da Empresa:</label>
+            <input type="text" id="txtEmpresa" name="cep" placeholder="Informe o Nome da sua empresa" required>
+          </div>-->
+          <div class="input-wrapper">
+            <label for="txtTelefone">Telefone de Conato:</label>
+            <input value="" type="tel" id="txtTelefone" name="txtTelefone" pattern="\(\d{2}\)\d{5}-\d{4}" maxlength="15" placeholder="(00) 00000-0000" autocomplete="tel" required>
+          </div>
+          <!-- 
+          <div class="input-wrapper">
+            <label for="cep">CEP:</label>
+            <input type="text" id="txtCEP" name="cep" placeholder="Digite seu CEP" required>
+          </div>-->
+          <div class="input-wrapper">
+            <label for="txtEndereco">Endereço:</label>
+            <input type="address" id="txtEndereco" name="txtEndereco" placeholder="Digite seu endereço" required>
+          </div>
+          <!--
+          <div class="input-wrapper">
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="txtBairro" name="bairro" placeholder="Digite seu bairro" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="txtCidade" name="cidade" placeholder="Digite sua cidade" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="numero">Número:</label>
+            <input type="text" id="txtNumero" name="numero" placeholder="Digite o número" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="complemento">Complemento:</label>
+            <input type="text" id="txtComplemento" name="complemento" placeholder="Digite o complemento">
+          </div>-->
+
+          <div class="input-wrapper">
+            <label for="ddlUf">UF:</label>
+            <select id="ddlUf" name="ddlUf" required>
+              <option value="">Selecione</option>
+              <!-- test
+              <option value="AC">AC</option>
+              <option value="AL">AL</option>
+              <option value="AP">AP</option> -->
+              <option value="AM">AM</option>
+
+              <!-- test 
+              <option value="BA">BA</option>
+              <option value="CE">CE</option>
+              <option value="DF">DF</option>
+              <option value="ES">ES</option>
+              <option value="GO">GO</option>
+              <option value="MA">MA</option>
+              <option value="MT">MT</option>
+              <option value="MS">MS</option>
+              <option value="MG">MG</option>
+              <option value="PA">PA</option>
+              <option value="PB">PB</option>
+              <option value="PR">PR</option>
+              <option value="PE">PE</option>
+              <option value="PI">PI</option>
+              <option value="RJ">RJ</option>
+              <option value="RN">RN</option>
+              <option value="RS">RS</option>
+              <option value="RO">RO</option>
+              <option value="RR">RR</option>
+              <option value="SC">SC</option>
+              <option value="SP">SP</option>
+              <option value="SE">SE</option>
+              <option value="TO">TO</option>-->
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="InformacoesCliente" class="form-label">Salvar informações:</label>
+            <div>
+                <button id="InformacoesCliente" name="InformacoesCliente" class="btn btn-outline-dark" type="button" onclick="salvarInformacoesCliente()">
+                    Salvar <i class="bi bi-check2-circle"></i>
+                </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <section class="py-5 bg-light">
+        <div class="container-button-cart">
+          <button class="btn btn-outline-dark flex-shrink-1 mb-3" style="width: fit-content;"  type="button"
+            onclick="loja.metodos.voltar()">
+            <i class="bi-cart-fill me-1"></i>
+            Voltar
+          </button>
+          <button class="btn btn-outline-dark flex-shrink-1 mb-3" style="width: fit-content;"  type="button"
+            onclick="loja.metodos.resumoPedido()">
+            Revisar pedido
+            <i class="bi-cart-fill me-1"></i>
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <section id="Etapa2" class="disable">
+      <section class="py-5 bg-light">
+        <div class="container px-4 px-lg-5 mt-5">
+          <h2 class="fw-bolder mb-4">Resumo do pedido:</h2>
+          <div id="itensProdutosCarrinho" class="col mr-0 ml-0 animated fadeIn hidden">
+            <!-- Lista -->
+            <div id="itensProdutosCarrinho" class="col mb-4">
+              <!-- Product image-->
+            </div>
+          </div>
+          <div class="container-button-cart">
+            <a class="btn btn-outline-dark flex-shrink-1 mb-3"  type="button"
+              onclick="loja.metodos.etapa1()">
+              <i class="bi-cart-fill me-1"></i>
+              Voltar
+            </a>
+              
+              <a id="btnEtapaResumo" class="btn btn-outline-dark flex-shrink-1 mb-3"  type="button" href="">
+                <i class="bi-cart-fill me-1"></i>
+                Enviar Pedido
+              </a>
+          </div>
+        </div>
+      </section>
+    </section>
+
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <div class="text-center" style="text-decoration:none;">
+          <a href="https://www.facebook.com/AristeuRefrigeracao/" target="_blank" class="social-icon-footer">
+            <span class="social-ico-icon">
+              <i class="text-white bi bi-facebook"></i>
+            </span>
+          </a>
+          <a href="https://api.whatsapp.com/send/?phone=5592984444694&text&type=phone_number&app_absent=0" target="_blank" class="social-icon-footer">
+            <span class="social-ico-icon">
+              <i class="text-white bi bi-whatsapp"></i>
+            </span>
+          </a>
+          <a href="https://www.instagram.com/aristeurefrigeracao/" target="_blank" class="social-icon-footer">
+            <span class="social-ico-icon">
+              <i class="text-white bi bi-instagram"></i>
+            </span>
+          </a>
+        </div>
+        <p class="m-0 text-center text-white">Copyright © 2024 Rugido Digital | 
+          <a class="text-white" href="https://www.instagram.com/rgdo.agencia/">
+            Designed by Rugido Digital
+          </a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script type="text/javascript" src="js/jquery-3.7.1.js"></script>
+    <script type="text/javascript" src="js/carrinho.js"></script>
+    <script type="text/javascript" src="js/fazerPedido.js"></script>
+  </body>
 </html>

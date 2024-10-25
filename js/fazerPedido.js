@@ -6,14 +6,57 @@ var loja = {};
 
 var MEU_ENDERECO = null;
 
-var CELULAR_EMPRESA = '5592992577657'
-                       
+var CELULAR_EMPRESA = '5592984444694'
+
+// Adição de (xx) e - automático
+const tel = document.getElementById('txtTelefone') // Seletor do campo de telefone
+tel.addEventListener('keypress', (e) => mascaraTelefone(e.target.value)) // Dispara quando digitado no campo
+tel.addEventListener('change', (e) => mascaraTelefone(e.target.value)) // Dispara quando autocompletado o campo
+const mascaraTelefone = (valor) => {
+    valor = valor.replace(/\D/g, "")
+    valor = valor.replace(/^(\d{2})(\d{0})/g, "($1) $2")
+    valor = valor.replace(/(\d{5})(\d{0})/, "$1-$2")
+    tel.value = valor // Insere o(s) valor(es) no campo
+}
 
 loja.eventos = {
 
     init: () => {
         
        
+    }
+}
+
+// Função para salvar as informações do cliente no localStorage
+function salvarInformacoesCliente() {
+    const cliente = {
+        nome: document.getElementById('txtNome').value,
+        uf: document.getElementById('ddlUf').value,
+        telefone: document.getElementById('txtTelefone').value,
+        endereco: document.getElementById('txtEndereco').value
+    };
+
+    // Salva os dados do cliente no localStorage
+    localStorage.setItem('cliente', JSON.stringify(cliente));
+    alert("Informações salvas com sucesso!");
+}
+
+// Função para preencher automaticamente o formulário com os dados do cliente
+function preencherFormulario() {
+    const clienteInfo = localStorage.getItem('cliente');
+
+    if (clienteInfo) {
+        const cliente = JSON.parse(clienteInfo);
+
+        // Preencher os campos do formulário com os dados salvos
+        document.getElementById('txtNome').value = cliente.nome || '';
+        document.getElementById('ddlUf').value = cliente.uf || '';
+        document.getElementById('txtTelefone').value = cliente.telefone || '';
+        document.getElementById('txtEndereco').value = cliente.endereco || '';
+
+        alert(`Bem-vindo de volta, ${cliente.nome}! Seus dados foram preenchidos.`);
+    } else {
+        alert("Nenhum dado de cliente foi encontrado.");
     }
 }
 
@@ -29,12 +72,19 @@ loja.metodos = {
         console.log("itens :", carrinhoDeCompras.itens.length);
 
         for (var i = 0; i < itens.length; i++) {
+            let preco = parseFloat(itens[i].preco).toFixed(2).replace('.', ',');
+            let metragem = parseFloat(itens[i].metragemSelect); // Metragem selecionada
+            let quantItem = parseInt(itens[i].quantidade); // Quantidade selecionada
+            let valorMetragem = (parseFloat(itens[i].preco) * metragem * quantItem).toFixed(2).replace('.', ','); // Valor do produto com base na metragem
+            console.log("Valor Unitário: ", valorMetragem); // Tá escrito valorMetragem, mas também faz a function de calc. a quantidade e apresentar o valor total 
             let temp = loja.templates.itemResumo
                 .replace(/\${img}/g, itens[i].img)
                 .replace(/\${name}/g, itens[i].name)
                 .replace(/\${qtd}/g, itens[i].quantidade)
-                .replace(/\${total}/g, (itens[i].preco * itens[i].quantidade))
+                .replace(/\${total}/g, preco)
                 .replace(/\${price}/g, itens[i].preco)
+                .replace(/\${largura}/g, metragem) // Metragem selecionada
+                .replace(/\${valorMetragem}/g, valorMetragem); // Valor total com a metragem
             // Adiciona os itens ao #itensProdutos
             $("#itensProdutosCarrinho").append(temp);
         }
@@ -66,6 +116,7 @@ loja.metodos = {
             $("#txtTelefone").focus();
             return;
         }
+        
 
         // if (empresa.length <= 0) {
         //     loja.metodos.mensagem('Informe o Nome da Empresa, por favor.');
@@ -149,51 +200,38 @@ loja.metodos = {
     },
 
     finalizarPedido: () => {
-        
-        
-
-        
         if (carrinhoDeCompras.itens.length > 0 && MEU_ENDERECO != null) {
-
             var texto = 'Olá! Vim pelo catálogo e gostaria de fazer meu pedido:';
-            texto += `\n*Itens do pedido:*\n\n\${itens}`;
+            var itens = ''; // Mover a declaração da variável para o início
+           
+            $.each(carrinhoDeCompras.itens, (i, e) => {
+                // Calculando o preço total com a metragem selecionada
+                let precoTotal = (parseFloat(e.preco) * parseFloat(e.metragemSelect) * parseInt(e.quantidade)).toFixed(2).replace('.', ',');
+    
+                // Concatena as informações de cada item no formato correto
+                itens += `*${e.quantidade}x* ${e.name} (Metragem: ${e.metragemSelect}m) - *R$ ${precoTotal}* \n`;
+            });
+    
+            // Continuando com a mensagem, concatenando endereço e cliente
+            texto += `\n*Itens do pedido:*\n${itens}`; // Insere a lista de itens aqui
             texto += '\n*Endereço de entrega:*';
             texto += `\n${MEU_ENDERECO.endereco} - ${MEU_ENDERECO.uf}`;
-
             texto += `\nCliente: ${MEU_ENDERECO.nome}`;
-            //texto += `\n\n*Total (com entrega): R$ ${(VALOR_CARRINHO + VALOR_ENTREGA).toFixed(2).replace('.', ',')}*`;
+            texto += `\nTelefone: ${MEU_ENDERECO.numeroTelefone}`;
             
-            console.log("passou do texto");
-            console.log("texto >>>>>>>", texto);
-
-            var itens = '';
-
-            $.each(carrinhoDeCompras.itens, (i, e) => {
-
-                console.log("Está rodando");
-                //itens += `*${e.quantidade}x* ${e.name} ....... R$ ${e.price.toFixed(2).replace('.', ',')} \n`;
-                itens += `*${e.quantidade}x* ${e.name} \n`;
-
-
-                // último item
-                if ((i + 1) == carrinhoDeCompras.itens.length) {
-
-                    texto = texto.replace(/\${itens}/g, itens);
-
-                    // converte a URL
-                    let encode = encodeURI(texto);
-                    let URL = `https://wa.me/${CELULAR_EMPRESA}?text=${encode}`;
-
-                    $("#btnEtapaResumo").attr('href', URL);
-
-                    console.log("final >>>>>>>", URL);
-
-                }
-
-            })
-
+            console.log("Texto da mensagem:", texto);
+    
+            // Converte a mensagem para URI e gera o link do WhatsApp
+            let encode = encodeURI(texto);
+            let URL = `https://wa.me/${CELULAR_EMPRESA}?text=${encode}`;
+            console.log("URL gerada para WhatsApp:", URL);
+    
+            // Atualiza o href do botão com o link gerado
+            $("#btnEtapaResumo").attr('href', URL);
+    
+        } else {
+            loja.metodos.mensagem("Carrinho vazio ou endereço não definido.");
         }
-
     },
 
     mensagem: (texto, cor = 'red', tempo = 3500) => {
@@ -257,16 +295,21 @@ loja.templates = {
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">\${name}</h5>
-                        <p class="card-text">
-                            <label>Preço:<span class="item-price">\${price}</span></label> 
-                        </p>
+                        <!-- Largura/Metragem do produto -->
+                        <p class="text-muted">Metragem: \${largura}m² x 1.22m²</p>
                         <div class="d-flex justify-content-between">
                             <div>
-                                <p class="card-text">
-                                    <label>Quantidade:</label> <span class="item-quantity">\${qtd}</span>
-                                </p>
-                                <p class="card-text">
-                                    <label>Total:</label> <span class="item-total">\${total}</span>
+                                <p class="card-text">Quantidade: \${qtd}</p>
+                                <!-- Preço do produto -->
+                                <p class="card-text fw-bolder">
+                                    <label>Total:
+                                        <h3>
+                                            <span class="item-total price">
+                                                <span class="currency">R$</span>
+                                                <span class="value me-3" id="preco"> \${valorMetragem}</span>
+                                            </span>
+                                        </h3>
+                                    </label>
                                 </p>
                             </div>
                         </div>

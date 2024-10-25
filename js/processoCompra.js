@@ -21,39 +21,42 @@ loja.metodos = {
         //badgeSpan.textContent = value;
     },
 
-    obterProdutosCarrinho:() =>{
+    obterProdutosCarrinho: () => {
 
         carrinhoDeCompras.carregarCarrinho();
-        let itens = [];
-        itens = carrinhoDeCompras.itens;        
-        console.log("Elementos Relacionados ",itens);
-
-        if(itens.length == 0){
-            console.log(" Carrinho vazio >>>>>>>");
+        let itens = carrinhoDeCompras.itens;        
+        console.log("Elementos Relacionados ", itens);
+    
+        if (itens.length == 0) {
+            console.log("Carrinho vazio >>>>>>>");
             loja.metodos.carrinhoVazio();
-        }else{
+        } else {
             loja.metodos.carrinhoCheio();
         }
-
+    
         $("#itensProdutosCarrinho").html('');
         console.log("itens :", carrinhoDeCompras.itens.length);
-
+    
         for (var i = 0; i < itens.length; i++) {
-
-            let preco = itens[i].preco.toFixed(2).replace('.', ',');
+            let preco = parseFloat(itens[i].preco).toFixed(2).replace('.', ',');
+            let metragem = parseFloat(itens[i].metragemSelect); // Metragem selecionada
+            let quantItem = parseInt(itens[i].quantidade); // Quantidade selecionada
+            let valorMetragem = (parseFloat(itens[i].preco) * metragem * quantItem).toFixed(2).replace('.', ','); // Valor do produto com base na metragem
+            console.log("Valor Unitário: ", valorMetragem); // Tá escrito valorMetragem, mas também faz a function de calc. a quantidade e apresentar o valor total 
             let temp = loja.templates.itemCarrinho
                 .replace(/\${img}/g, itens[i].img)
                 .replace(/\${name}/g, itens[i].name)
                 .replace(/\${id}/g, itens[i].id)
                 .replace(/\${qtd}/g, itens[i].quantidade)
-                .replace(/\${price}/g, preco)
+                .replace(/\${price}/g, preco) // Preço unitário
+                .replace(/\${largura}/g, metragem) // Metragem selecionada
+                .replace(/\${valorMetragem}/g, valorMetragem); // Valor total com a metragem
     
             // Adiciona os itens ao #itensProdutos
             $("#itensProdutosCarrinho").append(temp);
         }
-
+    
         loja.metodos.atualizarValorTotal(loja.metodos.obterValorTotal());
-
     },
 
     btnSubtract: (id) =>{
@@ -97,16 +100,16 @@ loja.metodos = {
         let valorTotal = document.getElementById('total-carrinho');
         if(valorTotal != null){
             valorTotal.textContent = ": R$ " + value.replace('.', ',');
-        } else
-            valorTotal.textContent = "0,00" + " R$";
+        } else {valorTotal.textContent = "0,00" + " R$";}
     },
 
     obterValorTotal:() =>{
         let valorTotal = carrinhoDeCompras.calcularTotal();
         console.log('valor total', valorTotal);
-
         return valorTotal;
     },
+
+
 
     carrinhoVazio:() =>{
 
@@ -126,46 +129,45 @@ loja.metodos = {
 loja.templates = {
 
     itemCarrinho:`
-   <div class="col mb-4">
-                        <div class="card custom-card">
-                            <!-- Product image-->
-                            <div class="card-cont-cart">
-                                <img class="card-img-top" src="\${img}" alt="..." />
-                            </div>
-                            <!-- Product details-->
-                            <div class="card-body custom-card-content">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">\${name}</h5>
-                                    <!-- Product price-->
-                                    <br>
-                                    <h5 class="fw-bolder">R$ \${price}</h5>
-                                    
-                                </div>
-                            </div>
-
-                            <div class="card-cart-control">
-
-                                <div class=" quantity-control" style="width: 100px">
-                                    <button class="btn-cart-control btn-subtract"
-                                    onclick="loja.metodos.btnSubtract(\${id})"
-                                    >-</button>
-                                    <span class="quantity-label" id="quantity-label-\${id}">\${qtd}</span>
-                                    <button class="btn-cart-control btn-add"
-                                    onclick="loja.metodos.btnAdd(\${id})"
-                                    >+</button>
-                                </div>
-
-                                <div class="card-footer border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto"
-                                    onclick="loja.metodos.btnRemove(\${id})"> 
-                                    <i class="bi bi-trash-fill"></i>  
-                                    Remover</a>
-                                </div>
-                                
-                            </div>
-                        </div>                    
+   
+        <div class="col mb-4 flow-content">
+            <div class="overflow-auto">
+              <div class="blog-card">
+                <!-- Imagem do produto -->
+                <div class="meta">
+                    <div class="photo" style="background-image:url(\${img})">
+                        <!-- Controle de quantidade -->
+                        <div onclick="loja.metodos.obterProdutosCarrinho()" class="quantity-control d-flex justify-content-center align-items-center" style="width: 100px">
+                            <button class="btn-cart-control btn-subtract" onclick="loja.metodos.btnSubtract(\${id})">-</button>
+                            <span class="quantity-label mx-2" id="quantity-label-\${id}"  >\${qtd}</span>
+                            <button class="btn-cart-control btn-add" onclick="loja.metodos.btnAdd(\${id})">+</button>
+                        </div>
                     </div>
+                </div>
+                <!-- Detalhes do produto -->
+                <div class="description">
+                    <!-- Nome do produto -->
+                    <h6>\${name}</h6>
+                    <!-- Metragem do produto -->
+                    <h2>Metragem: \${largura}m² x 1,22m²</h2>
+                    <!-- Preço do produto -->
+                    <p class="fw-bolder">
+                        <h5>
+                            <span class="price">
+                                <span class="currency">R$</span>
+                                <span class="value me-3" id="preco"> \${valorMetragem}</span>
+                            </span>
+                        </h5>
+                    </p>
+                    <!-- remoção -->
+                    <p class="read-more">
+                        <a class="btn btn-outline-danger mt-auto" onclick="loja.metodos.btnRemove(\${id})"> 
+                            Remover
+                        </a>
+                    </p>
+                </div>
+              </div>
+            </div>
+        </div>
     `,
-
 }

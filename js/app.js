@@ -3,9 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 const button = document.getElementById("float-button-carrinho");
-
-    button.onclick = function() {
-        window.location.href = "carrinho.html";
+button.onclick = function() {
+    window.location.href = "carrinho.html";
 };
 
 window.onscroll = function() {
@@ -13,7 +12,7 @@ window.onscroll = function() {
     var sticky = header.offsetTop; // Barra-Fixa
 
     var floatButton = document.querySelector('.float-button');
-    if (document.documentElement.scrollTop > 90 && window.pageYOffset > sticky) { // Exibe o botão após rolar 200px
+    if (document.documentElement.scrollTop > 165 && window.pageYOffset > sticky) { // Exibe o botão após rolar 200px
         floatButton.style.display = 'block'; // Botao carrinho float (habilitado)
         header.classList.add("sticky"); // Navbar fixa (Ativado)
     } else {
@@ -22,43 +21,58 @@ window.onscroll = function() {
     }
 };
 
-// Barra fixa no tela inicial
-// window.onscroll = function() {myFunction()};
-// var header = document.getElementById("filtro");
-// var sticky = header.offsetTop;
-// function myFunction() {
-//   if (window.pageYOffset > sticky) {
-//     header.classList.add("sticky");
-//   } else {
-//     header.classList.remove("sticky");
-//   }
-// }
+// -------------- CAROUSEL-FUNCTION ---------------- 
+//               Manual e Automático
+let slideIndex = 0;
+let autoSlide;  // Variável para controlar o intervalo automático
 
-// Carousel na tela inicial
-// function showSlides() {
-//     let slideIndex = 0;
-//     let i;
-//     let slides = document.getElementsByClassName("mySlides");
-//     let dots = document.getElementsByClassName("dot");
-//     for (i = 0; i < slides.length; i++) {
-//         slides[i].style.display = "none";  
-//     }
-//     slideIndex++;
-//     if (slideIndex > slides.length) {slideIndex = 1}    
-//     for (i = 0; i < dots.length; i++) {
-//         dots[i].className = dots[i].className.replace(" active", "");
-//     }
-//     slides[slideIndex-1].style.display = "block";  
-//     dots[slideIndex-1].className += " active";
-//     setTimeout(showSlides, 2000); // Change image every 2 seconds
-// }
+// Inicia o carousel
+showSlides();
+
+// Função para alterar para o slide atual, chamado ao clicar no ponto
+function currentSlide(n) {
+  clearTimeout(autoSlide); // Para a troca automática quando o usuário clica manualmente
+  showSlides(slideIndex = n);
+}
+
+// Função principal que mostra os slides
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+
+  // Se nenhum valor for passado para `n`, ele incrementa o slideIndex
+  if (n === undefined) {
+    slideIndex++;
+  }
+
+  // Reseta o índice quando chegar ao último slide
+  if (slideIndex > slides.length) { slideIndex = 1 }
+  if (slideIndex < 1) { slideIndex = slides.length }
+
+  // Esconde todos os slides
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+
+  // Remove a classe 'active' de todos os pontos
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+
+  // Mostra o slide atual e adiciona 'active' ao ponto correspondente
+  slides[slideIndex - 1].style.display = "block";  
+  dots[slideIndex - 1].className += " active";
+
+  // Reinicia o auto slide após 2 segundos
+  autoSlide = setTimeout(showSlides, 3000);  // Troca de imagem a cada 2 segundos
+}
+// ---------------- END-CAROUSEL-FUNCTION ----------------
+
 
 var itemExibidosNoMenu = [];
-
 var loja = {};
-
 loja.eventos = {
-
     init: () => {
         console.log("Função init está sendo chamada.");
         carrinhoDeCompras.carregarCarrinho();
@@ -158,7 +172,7 @@ loja.metodos = {
     },
 
     obterItensPorTag: ( value ) => {
-        var categorias = []
+        var categorias, sub_categoria = []
         switch (value) {
             case 1:
                 categorias = ['MADEIRAS'];
@@ -173,6 +187,14 @@ loja.metodos = {
             break;
 
             case 4:
+                categorias = ['TELADO'];
+            break;
+
+            case 5:
+                categorias = ['PISOMAX'];
+            break;
+
+            case 6:
                 categorias = ['DIVERSOS'];
             break;
 
@@ -180,7 +202,6 @@ loja.metodos = {
           }
 
         dadosFiltrados = MENU.filter(item => categorias.includes(item.categoria));
-
         console.log("tags chegando ", categorias);
 
         console.log("resultado ", dadosFiltrados);
@@ -294,46 +315,46 @@ function closeOtherSubMenus(currentSubMenu) {
 loja.templates = {
 
     item: `
-    <div class="col-12 mb-5">
-                        
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <div class="card-title grid">
-                                <figure class="effect-milo">
-                                    <img class="card-img-top" src="\${img}" alt="..." />
-                                    <figcaption>
-                                        <div class="product-description">
-                                            <h5>Sobre este item:</h5>
-                                            <ul>
-                                                <li>Largura : \${largura}</li>
-                                                <li>Impermeável</li>
-                                                <li>Lavável</li>
-                                                <li>Antibacteriano</li>
-                                                <li>Auto colante</li>
-                                            </ul>
-                                        </div>
-                                    </figcaption>			
-                                </figure>
+        
+        <div class="col mb-5">
+            <div class="card h-100">
+                <!-- Product image-->
+                <div class="card-title grid">
+                    <figure class="effect-milo">
+                        <img class="card-img-top" src="\${img}" alt="..." />
+                        <figcaption>
+                            <div class="product-description">
+                                <h5>Sobre este item:</h5>
+                                <ul>
+                                    <li>Largura : \${largura}</li>
+                                    <li>Impermeável</li>
+                                    <li>Lavável</li>
+                                    <li>Antibacteriano</li>
+                                    <li>Auto colante</li>
+                                </ul>
                             </div>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">\${name}</h5>
-                                    <!-- Product price-->
-                                    <span class="price">
-                                        <span class="currency">R$</span>
-                                        <span class="value">\${price-show}</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price},\${marca},\${largura}'])"
-                                >Comprar</a></div>
-                            </div>
-                        </div>
+                        </figcaption>			
+                    </figure>
+                </div>
+                <!-- Product details-->
+                <div class="card-body p-2">
+                    <div class="text-center">
+                        <!-- Product name-->
+                        <h6>\${name}</h6>
+                        <!-- Product price-->
+                        <span class="price">
+                            <span class="currency">R$</span>
+                            <span class="value">\${price-show}</span>
+                        </span>
+                    </div>
+                </div>
+                <!-- Product actions-->
+                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center">
+                    <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price}','\${marca}','\${largura}'])"
+                    >Comprar</a></div>
+                </div>
+            </div>
         </div>
     `,
 
@@ -407,9 +428,7 @@ document.addEventListener("DOMContentLoaded", function() {
         dropdownMenu.classList.remove("show");
         resetDropdown();
     }
-
     document.addEventListener("DOMContentLoaded", function() {
-        // Função de clique
         dropdownButton.addEventListener("click", function(event) {
             event.stopPropagation(); 
             dropdownMenu.classList.contains("show") ? hideDropdown() : showDropdown();
@@ -521,8 +540,8 @@ function removerAcentos(texto) {
   }
 
 
-    // Função para construir o objeto com as categorias e suas subcategorias
-    function getCategoriasSelecionadas() {
+// Função para construir o objeto com as categorias e suas subcategorias
+function getCategoriasSelecionadas() {
     var categoriasSelecionadas = {}; // Objeto para armazenar as categorias e suas subcategorias
 
     // Obtém todas as categorias selecionadas
@@ -542,8 +561,8 @@ function removerAcentos(texto) {
     return categoriasSelecionadas;
 }
 
-    // Função para filtrar a base de dados com base nas categorias e subcategorias selecionadas
-    function filtrarBaseDeDados(categoriasSelecionadas) {
+// Função para filtrar a base de dados com base nas categorias e subcategorias selecionadas
+function filtrarBaseDeDados(categoriasSelecionadas) {
     var filteredData = [];
 
     MENU.forEach(function(item) {
@@ -556,26 +575,6 @@ function removerAcentos(texto) {
             if (subcategorias.includes(subcategoriasItem)) {
                 filteredData.push(item); // Adiciona o item filtrado ao array
             }
-        }
-    });
-
-    // Evento de clique no botão "Buscar"
-    document.querySelector(".dropdown-btn").addEventListener("click", function() {
-        var dropdownMenu = document.getElementById("dropdown-menu");
-        dropdownMenu.classList.remove("show");
-
-        var categoriasSelecionadas = getCategoriasSelecionadas(); // Obtém as categorias e suas subcategorias selecionadas
-
-        console.log("Categorias selecionadas:", categoriasSelecionadas);
-
-        var itensFiltrados = filtrarBaseDeDados(categoriasSelecionadas); // Filtra a base de dados com base nas subcategorias selecionadas
-        console.log("itens filtrados", itensFiltrados); 
-        
-        if(itensFiltrados.length == 0){
-            loja.metodos.feedBackBuscaFalha();
-        }else{
-            itemExibidosNoMenu = itensFiltrados;
-            loja.metodos.obterItensLoja(true);
         }
     });
 
