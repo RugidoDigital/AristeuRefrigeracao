@@ -11317,7 +11317,7 @@ form {
   z-index: 1; /* Garante que a imagem fique abaixo do navbar */
   top: 0px;
   padding: 1vw; 
-  background-color: #F3F3F3;
+  background-color: #FFF;
   /* background-image: url(/assets/assets_img/banner-site.jpg); */
   background-repeat: round;
 }

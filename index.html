@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col">
             <a href="index.html" class="navbar-brand">
-              <img width="65px" src="assets/ICONE.png" alt="Campos"> 
+              <img width="70px" src="assets/ICONE.png" alt="Campos"> 
             </a>
           </div>
           <div class="col">
@@ -315,6 +315,60 @@
         height: 190px; /* Altura fixa ou ajuste conforme necessário */
         object-fit: cover ; /* Corta as bordas da imagem e mantém o aspecto */
         overflow: hidden; /* Esconde o excesso da imagem fora das bordas */
+      }
+
+      .carousel-wrapper {
+        --width: 100px;
+        --gap: 0;
+        --num-items: 10;
+        --ani-offset: calc(var(--width) * var(--num-items) * -1);
+        --ani-speed: 10s;
+        
+        width: 400px;
+        overflow: hidden;
+        position: relative;
+      }
+      .carousel-wrapper::before,
+      .carousel-wrapper::after{
+        content: '';
+        position: absolute;
+        width: 20%;
+        height: 100%;
+        z-index: 1;
+        top: 0;
+      }
+      .carousel-wrapper::before{
+        left: 0;
+        background-image: linear-gradient(to right,var(--bg-clr) 0%,transparent 50%);
+      }
+      .carousel-wrapper::after{
+        right: 0;
+        background-image: linear-gradient(to left,var(--bg-clr) 0%,transparent 50%);
+      }
+
+      .carousel {
+        display: flex;
+        align-items: center;
+        animation: slide var(--ani-speed) linear infinite;
+      }
+      .item{
+        flex: 1 0 var(--width);
+        text-align: center;
+        padding:1rem;
+      }
+      .item:last-child{
+        /*background: red;*/
+      }
+      .item > img{
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      @keyframes slide {
+        100% {
+          transform: translateX(var(--ani-offset));
+        }
       }
 
     </style>  
