@@ -73,9 +73,9 @@ loja.metodos = {
 
         for (var i = 0; i < itens.length; i++) {
             let preco = parseFloat(itens[i].preco).toFixed(2).replace('.', ',');
-            let metragem = parseFloat(itens[i].metragemSelect); // Metragem selecionada
+            //let metragem = parseFloat(itens[i].metragemSelect);  Metragem selecionada
             let quantItem = parseInt(itens[i].quantidade); // Quantidade selecionada
-            let valorMetragem = (parseFloat(itens[i].preco) * metragem * quantItem).toFixed(2).replace('.', ','); // Valor do produto com base na metragem
+            let valorMetragem = (parseFloat(itens[i].preco) * quantItem).toFixed(2).replace('.', ','); // * metragem Valor do produto com base na metragem
             console.log("Valor Unitário: ", valorMetragem); // Tá escrito valorMetragem, mas também faz a function de calc. a quantidade e apresentar o valor total 
             let temp = loja.templates.itemResumo
                 .replace(/\${img}/g, itens[i].img)
@@ -83,7 +83,7 @@ loja.metodos = {
                 .replace(/\${qtd}/g, itens[i].quantidade)
                 .replace(/\${total}/g, preco)
                 .replace(/\${price}/g, itens[i].preco)
-                .replace(/\${largura}/g, metragem) // Metragem selecionada
+                // .replace(/\${largura}/g, metragem) Metragem selecionada
                 .replace(/\${valorMetragem}/g, valorMetragem); // Valor total com a metragem
             // Adiciona os itens ao #itensProdutos
             $("#itensProdutosCarrinho").append(temp);
@@ -206,10 +206,10 @@ loja.metodos = {
            
             $.each(carrinhoDeCompras.itens, (i, e) => {
                 // Calculando o preço total com a metragem selecionada
-                let precoTotal = (parseFloat(e.preco) * parseFloat(e.metragemSelect) * parseInt(e.quantidade)).toFixed(2).replace('.', ',');
+                let precoTotal = (parseFloat(e.preco) * parseInt(e.quantidade)).toFixed(2).replace('.', ',');// * parseFloat(e.metragemSelect)
     
                 // Concatena as informações de cada item no formato correto
-                itens += `*${e.quantidade}x* ${e.name} (Metragem: ${e.metragemSelect}m) - *R$ ${precoTotal}* \n`;
+                itens += `*${e.quantidade}x* ${e.name} - *R$ ${precoTotal}* \n`;//(Metragem: ${e.metragemSelect}m)
             });
     
             // Continuando com a mensagem, concatenando endereço e cliente
@@ -295,8 +295,8 @@ loja.templates = {
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">\${name}</h5>
-                        <!-- Largura/Metragem do produto -->
-                        <p class="text-muted">Metragem: \${largura}m² x 1.22m²</p>
+                        <!-- Largura/Metragem do produto 
+                        <p class="text-muted">Metragem: \${largura}m² x 1.22m²</p>-->
                         <div class="d-flex justify-content-between">
                             <div>
                                 <p class="card-text">Quantidade: \${qtd}</p>

@@ -51,6 +51,7 @@ loja.metodos = {
         .replace(/\${price}/g, preco)
         .replace(/\${marca}/g, item[4])
         .replace(/\${largura}/g, item[5])
+        .replace(/\${categoria}/g, item[6])
     
         // Adiciona os itens ao #itensProduto
         $("#itensProduto").append(temp);
@@ -64,19 +65,19 @@ loja.metodos = {
     const valorProduto = parseFloat(item[3]); // Preço de 1 metro do produto
 
     // Obtendo a metragem selecionada pelo usuário
-    const metragemSelect = parseFloat(document.getElementById('metros').value);
+    // const metragemSelect = parseFloat(document.getElementById('metros').value);
 
     // Obtendo a quantidade selecionada pelo usuário
     const quantidade = parseInt(document.getElementById('inputQuantity').innerText); // Certifique-se de que este campo existe no HTML
 
     // Calculando o preço total com base na metragem e na quantidade
-    const precoTotal = (valorProduto * metragemSelect * quantidade);
+    const precoTotal = (valorProduto * quantidade); // * metragemSelect
 
     // Atualizando o valor na tela
     document.getElementById('preco').innerText = `${precoTotal.toFixed(2)}`; // Preço total formatado
 
     // Logs para depuração
-    console.log("Valor do produto (por metro):", valorProduto);
+    console.log("Valor do produto (por 1 metro):", valorProduto);
     console.log("Metragem selecionada >>>>>", metragemSelect); // Valor em metros
     console.log("Quantidade selecionada >>>>>", quantidade); // Quantidade de itens
     console.log("Preço total >>>>>", precoTotal); // Preço total calculado
@@ -103,6 +104,7 @@ loja.metodos = {
                 .replace(/\${price}/g, itens[i].price)
                 .replace(/\${marca}/g, itens[i].marca)
                 .replace(/\${largura}/g, itens[i].largura)
+                .replace(/\${categoria}/g, itens[i].categoria)
     
             // Adiciona os itens ao #itensProdutos
             $("#itensProdutos").append(temp);
@@ -130,7 +132,7 @@ loja.metodos = {
 
         let quantityLabel = document.getElementById('inputQuantity');
         quantidade = parseInt(quantityLabel.textContent);
-        let metragemSelect = parseFloat(document.getElementById('metros').value);
+        // let metragemSelect = parseFloat(document.getElementById('metros').value);
         id = (parseInt(value)) - 1
         var itemParaAdicionar = MENU[id];
         carrinhoDeCompras.adicionarItem({
@@ -139,8 +141,8 @@ loja.metodos = {
             name: itemParaAdicionar.name,
             preco: itemParaAdicionar.price,
             quantidade: quantidade,
-            metragemSelect: metragemSelect,
-            valUnit: metragemSelect
+            // metragemSelect: metragemSelect,
+            // valUnit: metragemSelect
         });
 
         carrinhoDeCompras.salvarCarrinho();
@@ -277,7 +279,7 @@ loja.templates = {  // R$ \${price}
                                     <span class="currency">R$</span>
                                     <span class="value me-3" id="preco">\${price}</span>
                                 </span>
-                                <div class="m-2">
+                                <!-- <div class="m-2">
                                     <select id="metros" onchange="loja.metodos.atualizarPreco(\${id})" class="form-select" aria-label="Default select example">
                                         <option value="1">1.00m x 1.22m</option>
                                         <option value="1.5">1.50m x 1.22m</option>
@@ -299,9 +301,9 @@ loja.templates = {  // R$ \${price}
                                         <option value="9.5">9.50m x 1.22m</option>
                                         <option value="10">10.0m x 1.22m</option>
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
-                            <div class="product-quantity p-2">
+                            <div class="product-quantity py-2">
                                 <p class="quantity-label-item">Quantidade: </p>
                                 <div class=" quantity-control me-2" onclick="loja.metodos.atualizarPreco(\${id})">
                                     <button class="btn-cart-control btn-subtract me-2" 
@@ -316,11 +318,9 @@ loja.templates = {  // R$ \${price}
                             <div class="product-description">
                                 <p>Sobre este item</p>
                                 <ul>
-                                    <li>Largura: \${largura}</li>
-                                    <li>Impermeável</li>
-                                    <li>Lavável</li>
-                                    <li>Antibacteriano</li>
-                                    <li>Auto colante</li>
+                                    <li>Marca: \${marca}</li>
+                                    <li>Categoria: \${categoria}</li>
+                                    <!-- <li>Medida: \${largura}</li> -->
                                 </ul>
                             </div>
                             <button class="add-to-cart-btn tolltip m-2" 
@@ -346,11 +346,9 @@ loja.templates = {  // R$ \${price}
                         <div class="product-description">
                             <h5>Sobre este item:</h5>
                             <ul>
-                                <li>Largura : \${largura}</li>
-                                <li>Impermeável</li>
-                                <li>Lavável</li>
-                                <li>Antibacteriano</li>
-                                <li>Auto colante</li>
+                                <li>Marca: \${marca}</li>
+                                <li>Categoria: \${categoria}</li>
+                                <!-- <li>Medida: \${largura}</li> -->
                             </ul>
                         </div>
                     </figcaption>			
@@ -371,7 +369,7 @@ loja.templates = {  // R$ \${price}
             <!-- Product actions-->
             <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}',parseFloat('\${price}'.replace(',','.')),'\${marca}','\${largura}'])"
+                <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}',parseFloat('\${price}'.replace(',','.')),'\${marca}','\${largura}','\${categoria}'])"
                 >Comprar</a></div>
             </div>
         </div>

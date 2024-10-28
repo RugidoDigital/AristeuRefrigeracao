@@ -126,6 +126,7 @@ loja.metodos = {
                 .replace(/\${price}/g, itemExibidosNoMenu[i].price)
                 .replace(/\${marca}/g, itemExibidosNoMenu[i].marca)
                 .replace(/\${largura}/g, itemExibidosNoMenu[i].largura)
+                .replace(/\${categoria}/g, itemExibidosNoMenu[i].categoria)
                 
     
             // Adiciona os itens ao #itensProdutos
@@ -175,27 +176,27 @@ loja.metodos = {
         var categorias, sub_categoria = []
         switch (value) {
             case 1:
-                categorias = ['MADEIRAS'];
+                categorias = ['ACESSÓRIO'];
               break;
 
             case 2:
-                categorias =['PEDRAS'];
+                categorias =['AUTOMAÇÃO'];
               break;
 
             case 3:
-                categorias = ['METAL'];
+                categorias = ['ELÉTRICA'];
             break;
 
             case 4:
-                categorias = ['TELADO'];
+                categorias = ['LIMPEZA'];
             break;
 
             case 5:
-                categorias = ['PISOMAX'];
+                categorias = ['PEÇA'];
             break;
 
             case 6:
-                categorias = ['DIVERSOS'];
+                categorias = ['REFRIGERAÇÃO'];
             break;
 
             default:
@@ -326,11 +327,9 @@ loja.templates = {
                             <div class="product-description">
                                 <h5>Sobre este item:</h5>
                                 <ul>
-                                    <li>Largura : \${largura}</li>
-                                    <li>Impermeável</li>
-                                    <li>Lavável</li>
-                                    <li>Antibacteriano</li>
-                                    <li>Auto colante</li>
+                                    <li>Marca: \${marca}</li>
+                                    <li>Categoria: \${categoria}</li>
+                                    <!-- <li>Medida: \${largura}</li> -->
                                 </ul>
                             </div>
                         </figcaption>			
@@ -351,7 +350,7 @@ loja.templates = {
                 <!-- Product actions-->
                 <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                     <div class="text-center">
-                    <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price}','\${marca}','\${largura}'])"
+                    <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price}','\${marca}','\${largura}','\${categoria}'])"
                     >Comprar</a></div>
                 </div>
             </div>
