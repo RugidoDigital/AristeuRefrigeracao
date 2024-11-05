@@ -14,9 +14,11 @@
     <link href="css/styles.css" rel="stylesheet" />
   </head>
   <body>
+
     <!-- Navigation-->
     <nav class="container"><!-- fullscreen-image class="px-6"-->
       <div class="navbar-custom-top-header" style="background-color: var(--bs-body-bg); gap: 20px;">
+        
         <!-- IMAGEM -->
         <div class="navbar-right-custom-top-header">
           <a href="index.html" class="navbar-brand">
@@ -25,10 +27,9 @@
         </div>
 
         <!-- BARRA DE PESQUISA -->
-        <div class="search-form-custom-top-header">
-          <div class="input-group" style="border-radius: 20px; border: 1px solid #090db7; background: #090db7; max-width: 30rem; margin: 5px;">
-            <input id="inputPesquisa" type="text" class="form-control" 
-            placeholder="Buscar..." style="border: 0; border-radius: 20px;">
+        <div class="search-form-custom-top-header flex-grow-1 order-3 order-md-2 w-100 w-md-auto" style="max-width: 30rem;">
+          <div class="input-group" style="border-radius: 20px; border: 1px solid #090db7; background: #090db7; margin: 5px;">
+            <input id="inputPesquisa" type="text" class="form-control" placeholder="Buscar..." style="border: 0; border-radius: 20px;">
             <span id="basic-addon1" type="button" class="btn rounded-circle" style="width: 40px; height: 40px; border: 0" onclick="loja.metodos.obterItensPorPesquisa()">
               <i class="text-white bi-search"></i>
             </span>
@@ -36,9 +37,9 @@
         </div>
 
         <!-- BARRA DE FILTRAGEM -->
-        <div class="navbar-left-custom-top-header"><!-- d-none d-sm-flex  -->
-          <div style="gap: 10px;" class="d-flex align-items-center">
-            <div class="dropdown d-flex">
+        <div class="navbar-left-custom-top-header d-flex align-items-center order-2 order-md-3 gap-3"><!-- d-none d-sm-flex  -->
+          <!-- <div style="gap: 10px;" class="d-flex align-items-center"> -->
+            <div class="dropdown">
               <div type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 <h4><i class="text-dark bi bi-funnel-fill"></i></h4>
               </div>
@@ -53,13 +54,13 @@
             </div>
             <!-- Botão Carrinho -->
             <form style="display: flex !important;" action="carrinho.html">
-              <div type="submit" class="btn position-relative text-dark"> <!-- custom-button -->
+              <button type="submit" class="btn position-relative text-dark"> <!-- custom-button -->
                 <!--<span class="d-none d-lg-inline">Carrinho</span>  Oculta o texto em dispositivos móveis -->
                 <h4><i class="bi-cart-fill me-1"></i></h4>
                 <span id="badgeCart" class="position-absolute top-50 start-50 translate-middle badge rounded-pill bg-danger text-white">
                 <!-- <span class="visually-hidden">unread messages</span> -->
                 </span>
-              </div>
+              </button>
             </form>
             <!-- Header-->
             <button class="float-button custom-button btn-lg" type="submit" id="float-button-carrinho">
@@ -132,15 +133,6 @@
               <li class="nav-item"><a class="nav-link" href="#filter" onclick="loja.metodos.obterItensPorTag(5)">Peças</a></li>
               <li class="nav-item"><a class="nav-link" href="#filter" onclick="loja.metodos.obterItensPorTag(6)">Refrigeração</a></li>
             </ul>
-            <form class="d-flex" role="search">
-              <div class="input-group" style="border-radius: 20px; border: 1px solid #090db7; background: #090db7; max-width: 30rem; margin: 5px;">
-                <input id="inputPesquisa" type="search" class="form-control" 
-                placeholder="Buscar..." style="border: 0; border-radius: 20px;">
-                <span id="basic-addon1" type="button" class="btn rounded-circle" style="width: 40px; height: 40px; border: 0" onclick="loja.metodos.obterItensPorPesquisa()">
-                  <i class="text-white bi-search"></i>
-                </span>
-              </div>
-            </form>
           </div>
         </div>
       </nav>

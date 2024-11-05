@@ -658,6 +658,15 @@ progress {
     padding-right: 7.8vw;
     padding-left: 7.8vw;
   }
+  /* Estilo adicional para layout responsivo */
+  .search-form-custom-top-header {
+    margin-top: 10px;
+  }
+  
+  .navbar-custom-top-header {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 @media (max-width: 576px) {
   #itensProdutos {
