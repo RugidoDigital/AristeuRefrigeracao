@@ -8,7 +8,7 @@ button.onclick = function() {
 };
 
 window.onscroll = function() {
-    var header = document.getElementById("filtro"); // Barra-Fixa da navbar id='fildro'
+    var header = document.getElementById("filter"); // Barra-Fixa da navbar id='fildro'
     var sticky = header.offsetTop; // Barra-Fixa
 
     var floatButton = document.querySelector('.float-button');
