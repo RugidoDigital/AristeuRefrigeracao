@@ -120,12 +120,11 @@
     <section id="filter">
       <nav id="filtro" class="container navbar navbar-expand-lg">
         <div class="container-fluid">
-          <!-- <img class="navbarTopImage" aria-current="page" src="assets/ICONE.png" alt="Campos"> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 "> <!--  nav-links-custom-top-header d-lg-flex-->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-around w-100">
               <li class="nav-item"><a class="nav-link" href="#filter" onclick="loja.metodos.obterItensPorTag(1)">Acessórios</a></li>
               <li class="nav-item"><a class="nav-link" href="#filter" onclick="loja.metodos.obterItensPorTag(2)">Automação</a></li>
               <li class="nav-item"><a class="nav-link" href="#filter" onclick="loja.metodos.obterItensPorTag(3)">Elétrica</a></li>
@@ -392,6 +391,11 @@
         </p>
       </div>
     </footer>
+    <script>
+      function myFunction(x) {
+        x.classList.toggle("change");
+      }
+      </script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
