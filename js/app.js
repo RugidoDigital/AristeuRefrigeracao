@@ -125,7 +125,7 @@ loja.metodos = {
                 .replace(/\${price-show}/g, preco)
                 .replace(/\${price}/g, itemExibidosNoMenu[i].price)
                 .replace(/\${marca}/g, itemExibidosNoMenu[i].marca)
-                .replace(/\${largura}/g, itemExibidosNoMenu[i].largura)
+                .replace(/\${medida}/g, itemExibidosNoMenu[i].medida)
                 .replace(/\${categoria}/g, itemExibidosNoMenu[i].categoria)
                 
     
@@ -329,7 +329,7 @@ loja.templates = {
                                 <ul>
                                     <li>Marca: \${marca}</li>
                                     <li>Categoria: \${categoria}</li>
-                                    <!-- <li>Medida: \${largura}</li> -->
+                                    <!-- <li>Medida: \${medida}</li> -->
                                 </ul>
                             </div>
                         </figcaption>			
@@ -350,7 +350,7 @@ loja.templates = {
                 <!-- Product actions-->
                 <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                     <div class="text-center">
-                    <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price}','\${marca}','\${largura}','\${categoria}'])"
+                    <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price}','\${marca}','\${medida}','\${categoria}'])"
                     >Comprar</a></div>
                 </div>
             </div>

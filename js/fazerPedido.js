@@ -83,7 +83,7 @@ loja.metodos = {
                 .replace(/\${qtd}/g, itens[i].quantidade)
                 .replace(/\${total}/g, preco)
                 .replace(/\${price}/g, itens[i].preco)
-                // .replace(/\${largura}/g, metragem) Metragem selecionada
+                // .replace(/\${medida}/g, metragem) Metragem selecionada
                 .replace(/\${valorMetragem}/g, valorMetragem); // Valor total com a metragem
             // Adiciona os itens ao #itensProdutos
             $("#itensProdutosCarrinho").append(temp);
@@ -295,8 +295,8 @@ loja.templates = {
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">\${name}</h5>
-                        <!-- Largura/Metragem do produto 
-                        <p class="text-muted">Metragem: \${largura}m² x 1.22m²</p>-->
+                        <!-- medida/Metragem do produto 
+                        <p class="text-muted">Metragem: \${medida}m² x 1.22m²</p>-->
                         <div class="d-flex justify-content-between">
                             <div>
                                 <p class="card-text">Quantidade: \${qtd}</p>

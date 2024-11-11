@@ -49,7 +49,7 @@ loja.metodos = {
                 .replace(/\${id}/g, itens[i].id)
                 .replace(/\${qtd}/g, itens[i].quantidade)
                 .replace(/\${price}/g, preco) // Preço unitário
-                //.replace(/\${largura}/g, metragem)  Metragem selecionada
+                //.replace(/\${medida}/g, metragem)  Metragem selecionada
                 .replace(/\${valorMetragem}/g, valorMetragem); // Valor total com a metragem
     
             // Adiciona os itens ao #itensProdutos
@@ -149,7 +149,7 @@ loja.templates = {
                     <!-- Nome do produto -->
                     <h6>\${name}</h6>
                     <!-- Metragem do produto 
-                    <h2>Metragem: \${largura}m² x 1,22m²</h2>-->
+                    <h2>Metragem: \${medida}m² x 1,22m²</h2>-->
                     <br>
                     <!-- Preço do produto -->
                     <p class="fw-bolder">

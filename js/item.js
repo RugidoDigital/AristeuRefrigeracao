@@ -50,7 +50,7 @@ loja.metodos = {
         .replace(/\${id}/g, item[2])
         .replace(/\${price}/g, preco)
         .replace(/\${marca}/g, item[4])
-        .replace(/\${largura}/g, item[5])
+        .replace(/\${medida}/g, item[5])
         .replace(/\${categoria}/g, item[6])
     
         // Adiciona os itens ao #itensProduto
@@ -103,7 +103,7 @@ loja.metodos = {
                 .replace(/\${price}/g, preco)
                 .replace(/\${price}/g, itens[i].price)
                 .replace(/\${marca}/g, itens[i].marca)
-                .replace(/\${largura}/g, itens[i].largura)
+                .replace(/\${medida}/g, itens[i].medida)
                 .replace(/\${categoria}/g, itens[i].categoria)
     
             // Adiciona os itens ao #itensProdutos
@@ -320,7 +320,7 @@ loja.templates = {  // R$ \${price}
                                 <ul>
                                     <li>Marca: \${marca}</li>
                                     <li>Categoria: \${categoria}</li>
-                                    <!-- <li>Medida: \${largura}</li> -->
+                                    <!-- <li>Medida: \${medida}</li> -->
                                 </ul>
                             </div>
                             <button class="add-to-cart-btn tolltip m-2" 
@@ -348,7 +348,7 @@ loja.templates = {  // R$ \${price}
                             <ul>
                                 <li>Marca: \${marca}</li>
                                 <li>Categoria: \${categoria}</li>
-                                <!-- <li>Medida: \${largura}</li> -->
+                                <!-- <li>Medida: \${medida}</li> -->
                             </ul>
                         </div>
                     </figcaption>			
@@ -369,7 +369,7 @@ loja.templates = {  // R$ \${price}
             <!-- Product actions-->
             <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}',parseFloat('\${price}'.replace(',','.')),'\${marca}','\${largura}','\${categoria}'])"
+                <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}',parseFloat('\${price}'.replace(',','.')),'\${marca}','\${medida}','\${categoria}'])"
                 >Comprar</a></div>
             </div>
         </div>
