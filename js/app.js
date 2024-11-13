@@ -117,16 +117,23 @@ loja.metodos = {
         for (var i = lastIndex; i < tamanhoDaListagem && i < lastIndex + 25; i++) {
             
             //Dessa forma o R$ fica na frente do valor do produto
-            let preco = itemExibidosNoMenu[i].price.toFixed(2).replace('.', ',');
+            let preco = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(itemExibidosNoMenu[i].price); // Formata o preço no formato de moeda BRL
+        
+            // Adiciona o espaço após 'R$' para o formato correto
+            const precoID = preco.replace('R$', '');
+
             let temp = loja.templates.item
                 .replace(/\${img}/g, itemExibidosNoMenu[i].img)
                 .replace(/\${name}/g, itemExibidosNoMenu[i].name)
                 .replace(/\${id}/g, itemExibidosNoMenu[i].id)
-                .replace(/\${price-show}/g, preco)
+                .replace(/\${price-show}/g, precoID)  // Exibe o preço já formatado
                 .replace(/\${price}/g, itemExibidosNoMenu[i].price)
                 .replace(/\${marca}/g, itemExibidosNoMenu[i].marca)
                 .replace(/\${medida}/g, itemExibidosNoMenu[i].medida)
-                .replace(/\${categoria}/g, itemExibidosNoMenu[i].categoria)
+                .replace(/\${categoria}/g, itemExibidosNoMenu[i].categoria);
                 
     
             // Adiciona os itens ao #itensProdutos

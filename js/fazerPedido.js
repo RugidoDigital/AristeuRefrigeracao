@@ -62,33 +62,48 @@ function preencherFormulario() {
 
 loja.metodos = {
 
-    obterProdutosCarrinho:() =>{
+    obterProdutosCarrinho: () => {
 
         carrinhoDeCompras.carregarCarrinho();
         let itens = [];
         itens = carrinhoDeCompras.itens;
-        //limpa o conteudo
+        // Limpa o conteúdo
         $("#itensProdutosCarrinho").html('');
         console.log("itens :", carrinhoDeCompras.itens.length);
-
+    
         for (var i = 0; i < itens.length; i++) {
             let preco = parseFloat(itens[i].preco).toFixed(2).replace('.', ',');
-            //let metragem = parseFloat(itens[i].metragemSelect);  Metragem selecionada
+            // let metragem = parseFloat(itens[i].metragemSelect);  Metragem selecionada
             let quantItem = parseInt(itens[i].quantidade); // Quantidade selecionada
-            let valorMetragem = (parseFloat(itens[i].preco) * quantItem).toFixed(2).replace('.', ','); // * metragem Valor do produto com base na metragem
-            console.log("Valor Unitário: ", valorMetragem); // Tá escrito valorMetragem, mas também faz a function de calc. a quantidade e apresentar o valor total 
+    
+            // Cálculo do valor total com base na quantidade
+            let valorMetragem = parseFloat(itens[i].preco) * quantItem;
+    
+            // Formatação do valor total para o formato monetário brasileiro
+            valorMetragem = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(valorMetragem);
+    
+             // Adiciona o espaço após 'R$' para o formato correto
+            const valorPtBR = valorMetragem.replace('R$', '');
+            
+            console.log("Valor Unitário: ", valorPtBR); // Valor total formatado
+    
+            // Substituindo valores no template
             let temp = loja.templates.itemResumo
                 .replace(/\${img}/g, itens[i].img)
                 .replace(/\${name}/g, itens[i].name)
                 .replace(/\${qtd}/g, itens[i].quantidade)
-                .replace(/\${total}/g, preco)
+                .replace(/\${total}/g, preco) // Preço unitário
                 .replace(/\${price}/g, itens[i].preco)
-                // .replace(/\${medida}/g, metragem) Metragem selecionada
-                .replace(/\${valorMetragem}/g, valorMetragem); // Valor total com a metragem
+                //.replace(/\${medida}/g, metragem) Metragem selecionada
+                .replace(/\${valorMetragem}/g, valorPtBR); // Valor total formatado com a metragem
+    
             // Adiciona os itens ao #itensProdutos
             $("#itensProdutosCarrinho").append(temp);
         }
-
+    
     },
 
     resumoPedido: () => {
@@ -204,13 +219,27 @@ loja.metodos = {
             var texto = 'Olá! Vim pelo catálogo e gostaria de fazer meu pedido:';
             var itens = ''; // Mover a declaração da variável para o início
            
+            // $.each(carrinhoDeCompras.itens, (i, e) => {
+            //     // Calculando o preço total com a metragem selecionada
+            //     let precoTotal = (parseFloat(e.preco) * parseInt(e.quantidade)).toFixed(2).replace('.', ',');// * parseFloat(e.metragemSelect)
+            //     // Concatena as informações de cada item no formato correto
+            //     itens += `*${e.quantidade}x* ${e.name} - *R$ ${precoTotal}* \n`;//(Metragem: ${e.metragemSelect}m)
+            // });
+
             $.each(carrinhoDeCompras.itens, (i, e) => {
-                // Calculando o preço total com a metragem selecionada
-                let precoTotal = (parseFloat(e.preco) * parseInt(e.quantidade)).toFixed(2).replace('.', ',');// * parseFloat(e.metragemSelect)
-    
+                // Calculando o preço total com a metragem selecionada (multiplicando preço pela quantidade)
+                let precoTotal = parseFloat(e.preco) * parseInt(e.quantidade);
+            
+                // Formatação do preço total no formato monetário brasileiro
+                precoTotal = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(precoTotal);
+            
                 // Concatena as informações de cada item no formato correto
-                itens += `*${e.quantidade}x* ${e.name} - *R$ ${precoTotal}* \n`;//(Metragem: ${e.metragemSelect}m)
+                itens += `*${e.quantidade}x* ${e.name} - *${precoTotal}* \n`;  // Exibe o preço já formatado
             });
+            
     
             // Continuando com a mensagem, concatenando endereço e cliente
             texto += `\n*Itens do pedido:*\n${itens}`; // Insere a lista de itens aqui
@@ -280,6 +309,7 @@ function showToast() {
 function formatCurrency(value) {
     let formattedValue = value.toFixed(2);
     formattedValue = formattedValue.replace('.', ',');
+    
     return formattedValue + " R$";
 }
 
@@ -295,7 +325,7 @@ loja.templates = {
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">\${name}</h5>
-                        <!-- medida/Metragem do produto 
+                        <!-- medida do produto 
                         <p class="text-muted">Metragem: \${medida}m² x 1.22m²</p>-->
                         <div class="d-flex justify-content-between">
                             <div>

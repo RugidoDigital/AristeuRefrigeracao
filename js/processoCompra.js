@@ -38,26 +38,41 @@ loja.metodos = {
         console.log("itens :", carrinhoDeCompras.itens.length);
     
         for (var i = 0; i < itens.length; i++) {
+            // Preço unitário formatado
             let preco = parseFloat(itens[i].preco).toFixed(2).replace('.', ',');
-            //let metragem = parseFloat(itens[i].metragemSelect);  Metragem selecionada
-            let quantItem = parseInt(itens[i].quantidade); // Quantidade selecionada
-            let valorMetragem = (parseFloat(itens[i].preco) * quantItem).toFixed(2).replace('.', ','); // * metragem Valor do produto com base na metragem
-            console.log("Valor Unitário: ", valorMetragem); // Tá escrito valorMetragem, mas também faz a function de calc. a quantidade e apresentar o valor total 
+    
+            // Quantidade selecionada
+            let quantItem = parseInt(itens[i].quantidade); 
+    
+            // Valor total com a metragem (formato monetário brasileiro)
+            let valorMetragem = (parseFloat(itens[i].preco) * quantItem);
+    
+            // Formatando o valor total (valorMetragem) para o padrão monetário brasileiro
+            valorMetragem = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(valorMetragem);
+
+            // Adiciona o espaço após 'R$' para o formato correto
+            const valorComEspaco = valorMetragem.replace('R$', '');
+    
+            console.log("Valor Unitário: ", valorComEspaco); // Valor total formatado
+    
             let temp = loja.templates.itemCarrinho
                 .replace(/\${img}/g, itens[i].img)
                 .replace(/\${name}/g, itens[i].name)
                 .replace(/\${id}/g, itens[i].id)
                 .replace(/\${qtd}/g, itens[i].quantidade)
                 .replace(/\${price}/g, preco) // Preço unitário
-                //.replace(/\${medida}/g, metragem)  Metragem selecionada
-                .replace(/\${valorMetragem}/g, valorMetragem); // Valor total com a metragem
+                //.replace(/\${medida}/g, metragem)  // Metragem selecionada
+                .replace(/\${valorMetragem}/g, valorComEspaco); // Valor total com a metragem
     
-            // Adiciona os itens ao #itensProdutos
+            // Adiciona os itens ao #itensProdutosCarrinho
             $("#itensProdutosCarrinho").append(temp);
         }
     
         loja.metodos.atualizarValorTotal(loja.metodos.obterValorTotal());
-    },
+    },    
 
     btnSubtract: (id) =>{
         let quantityLabel = document.getElementById('quantity-label-' + id);
@@ -96,12 +111,35 @@ loja.metodos = {
 
     },
 
-    atualizarValorTotal:(value) =>{
+    atualizarValorTotal: (value) => {
         let valorTotal = document.getElementById('total-carrinho');
-        if(valorTotal != null){
-            valorTotal.textContent = ": R$ " + value.replace('.', ',');
-        } else {valorTotal.textContent = "0,00" + " R$";}
+        
+        // Verifica se o valor de entrada é um número válido
+        if (value && !isNaN(value)) {
+            // Formata o número para o formato brasileiro com ponto como separador de milhar e vírgula como separador decimal
+            const valorFormatado = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value);
+
+            // Adiciona o espaço após 'R$' para o formato correto
+            const valorComEspaco = valorFormatado.replace('R$', ': R$');
+            
+            // Atualiza o conteúdo do elemento com o valor formatado
+            if (valorTotal != null) {
+                valorTotal.textContent = valorComEspaco;
+
+            } else {
+                valorTotal.textContent = ": R$ 0,00";
+            }
+        } else {
+            // Caso o valor seja inválido ou indefinido, define o valor como "R$ 0,00"
+            if (valorTotal != null) {
+                valorTotal.textContent = ": R$ 0,00";
+            }
+        }
     },
+    
 
     obterValorTotal:() =>{
         let valorTotal = carrinhoDeCompras.calcularTotal();

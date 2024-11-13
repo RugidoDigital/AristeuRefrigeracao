@@ -10,10 +10,13 @@ button.onclick = function() {
 window.onscroll = function() {
 
     var floatButton = document.querySelector('.float-button');
+    // var floatPetzap = document.querySelector('.float-zap');// BOTÃO DE WHATSAPP
     if (document.documentElement.scrollTop > 100) { // Exibe o botão após rolar 200px
         floatButton.style.display = 'block'; // Botao carrinho float (habilitado)
+        // floatPetzap.style.display = 'block';
     } else {
         floatButton.style.display = 'none'; // Botao carrinho float (desabilitado)
+        // floatPetzap.style.display = 'none';
     }
 };
 
@@ -45,13 +48,15 @@ loja.metodos = {
         preco = preco.replace('.', ',');
 
         let temp = loja.templates.item
-        .replace(/\${img}/g, item[0])
-        .replace(/\${name}/g, item[1])
-        .replace(/\${id}/g, item[2])
-        .replace(/\${price}/g, preco)
-        .replace(/\${marca}/g, item[4])
-        .replace(/\${medida}/g, item[5])
-        .replace(/\${categoria}/g, item[6])
+        .replace(/\${img}/g, item[0])// IMAGEM - PRODUTO
+        .replace(/\${name}/g, item[1])// NOME - PRODUTO
+        .replace(/\${id}/g, item[2])// ID - PRODUTO
+        .replace(/\${price}/g, preco)// PREÇO - PRODUTO
+        .replace(/\${marca}/g, item[4])// MARCA - PRODUTO
+        .replace(/\${medida}/g, item[5])// UNIDADE DE MEDIDA - PRODUTO
+        .replace(/\${categoria}/g, item[6]) // CATEGORIA - PRODUTO
+        // .replace(/\${codigo}/g, item[7]) // CÓDIGO - PRODUTO
+        
     
         // Adiciona os itens ao #itensProduto
         $("#itensProduto").append(temp);
@@ -59,30 +64,35 @@ loja.metodos = {
     }, 
 
     atualizarPreco: () => {
-    // Obtendo dados do produto do sessionStorage
-    let string = sessionStorage.getItem('item_data');
-    let item = string.split(",");
-    const valorProduto = parseFloat(item[3]); // Preço de 1 metro do produto
+        // Obtendo dados do produto do sessionStorage
+        let string = sessionStorage.getItem('item_data');
+        let item = string.split(",");
+        const valorProduto = parseFloat(item[3]); // Preço de 1 metro do produto
+    
+        // Obtendo a quantidade selecionada pelo usuário
+        const quantidade = parseInt(document.getElementById('inputQuantity').innerText); // Certifique-se de que este campo existe no HTML
+    
+        // Calculando o preço total com base na quantidade
+        const precoTotal = (valorProduto * quantidade);
+    
+        // Formatando o preço total para o formato brasileiro (R$)
+        const precoTotalFormatado = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(precoTotal);
 
-    // Obtendo a metragem selecionada pelo usuário
-    // const metragemSelect = parseFloat(document.getElementById('metros').value);
-
-    // Obtendo a quantidade selecionada pelo usuário
-    const quantidade = parseInt(document.getElementById('inputQuantity').innerText); // Certifique-se de que este campo existe no HTML
-
-    // Calculando o preço total com base na metragem e na quantidade
-    const precoTotal = (valorProduto * quantidade); // * metragemSelect
-
-    // Atualizando o valor na tela
-    document.getElementById('preco').innerText = `${precoTotal.toFixed(2)}`; // Preço total formatado
-
-    // Logs para depuração
-    console.log("Valor do produto (por 1 metro):", valorProduto);
-    console.log("Metragem selecionada >>>>>", metragemSelect); // Valor em metros
-    console.log("Quantidade selecionada >>>>>", quantidade); // Quantidade de itens
-    console.log("Preço total >>>>>", precoTotal); // Preço total calculado
+        // Adiciona o espaço após 'R$' para o formato correto
+        const valorComEspaco = precoTotalFormatado.replace('R$', '');
+    
+        // Atualizando o valor na tela
+        document.getElementById('preco').innerText = valorComEspaco; // Preço total formatado
+    
+        // Logs para depuração
+        console.log("Valor do produto (por 1 metro):", valorProduto);
+        console.log("Quantidade selecionada >>>>>", quantidade); // Quantidade de itens
+        console.log("Preço total >>>>>", precoTotal); // Preço total calculado
     },
-
+    
     // Atualizar o carrinho na interface do usuário
     atualizarCarrinho: function() {
         // Aqui você pode implementar a lógica para atualizar a interface do carrinho na sua página HTML
@@ -248,17 +258,15 @@ loja.metodos = {
 loja.templates = {  // R$ \${price}
                 
     item: `
-        
-
-        <div class="card mb-3" style="border: 0;">
+    <div class="card mb-3" style="border: 0;">
         <div class="product-actions">
-                                <form class="mb-3" action="index.html">
-                                    <button class="btn btn-outline-dark" type="submit">
-                                        <i class="bi bi-arrow-left-square-fill me-2"></i>
-                                        Continuar Comprando
-                                    </button>
-                                </form> 
-                            </div>
+            <form class="mb-3" action="index.html">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi bi-arrow-left-square-fill me-2"></i>
+                    Continuar Comprando
+                </button>
+            </form> 
+        </div>
             <div class="row g-0">
                 <div class="col-md-6">
                     <img class="card-img-top mb-5 mb-md-0 img-fluid rounded-start" src="\${img}" alt="..." />
@@ -320,6 +328,7 @@ loja.templates = {  // R$ \${price}
                                 <ul>
                                     <li>Marca: \${marca}</li>
                                     <li>Categoria: \${categoria}</li>
+
                                     <!-- <li>Medida: \${medida}</li> -->
                                 </ul>
                             </div>
@@ -369,7 +378,7 @@ loja.templates = {  // R$ \${price}
             <!-- Product actions-->
             <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}',parseFloat('\${price}'.replace(',','.')),'\${marca}','\${medida}','\${categoria}'])"
+                <a class="custom-button mt-auto" href="item.html" onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}',parseFloat('\${price}'.replace(',','.')),'\${marca}','\${medida}','\${categoria}'])"
                 >Comprar</a></div>
             </div>
         </div>
