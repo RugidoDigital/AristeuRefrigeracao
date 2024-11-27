@@ -14,120 +14,78 @@
     <link href="css/styles.css" rel="stylesheet" />
   </head>
   <body>
-
-    <!-- Navigation-->
-    <nav class="container"><!-- fullscreen-image class="px-6"-->
-      <div class="navbar-custom-top-header" style="background-color: var(--bs-body-bg); gap: 20px;">
-        
-        <!-- IMAGEM -->
-        <div class="navbar-right-custom-top-header">
+    <!-- <section id="filter"></section> -->
+    <header>
+      <div class="navbar container">
+          <!-- IMAGEM -->
+          <div class="Logo">
           <a href="index.html" class="navbar-brand">
             <img class="navbarTopImage" src="assets/ICONE.png" alt="Campos"> 
           </a>
         </div>
-
-        <!-- BARRA DE PESQUISA -->
-        <div class="search-form-custom-top-header flex-grow-1 order-3 order-md-2 w-100 w-md-auto" style="max-width: 30rem;">
+        <div class="search-bar search-form-custom-top-header">
           <div class="input-group" style="border-radius: 20px; border: 1px solid #090db7; background: #090db7; margin: 5px;">
-            <input id="inputPesquisa" type="text" class="form-control" placeholder="Buscar..." style="border: 0; border-radius: 20px;">
+            <input id="inputPesquisa" type="text" class="form-control" placeholder="Pesquisar..." style="border: 0; border-radius: 20px;">
             <span id="basic-addon1" type="button" class="btn rounded-circle" style="width: 40px; height: 40px; border: 0" onclick="loja.metodos.obterItensPorPesquisa()">
-              <i class="text-white bi-search"></i>
+              <i class="text-white bi bi-search"></i>
             </span>
           </div>
         </div>
-
-        <!-- BARRA DE FILTRAGEM -->
-        <div class="navbar-left-custom-top-header d-flex align-items-center order-2 order-md-3 gap-3"><!-- d-none d-sm-flex  -->
-          <!-- <div style="gap: 10px;" class="d-flex align-items-center"> -->
-            <div class="dropdown">
-              <div type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <h4><i class="text-dark bi bi-funnel-fill"></i></h4>
-              </div>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(1)">Acessórios</a></li>
-                <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(2)">Automação</a></li>
-                <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(3)">Elétrica</a></li>
-                <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(4)">Limpeza</a></li>
-                <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(5)">Peças</a></li>
-                <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(6)">Refrigeração</a></li>
-              </ul>
-            </div>
-            <!-- Botão Carrinho -->
-            <form style="display: flex !important;" action="carrinho.html">
-              <button type="submit" class="btn position-relative text-dark"> <!-- custom-button -->
-                <!--<span class="d-none d-lg-inline">Carrinho</span>  Oculta o texto em dispositivos móveis -->
-                <h4><i class="bi-cart-fill me-1"></i></h4>
-                <span id="badgeCart" class="position-absolute top-50 start-50 translate-middle badge rounded-pill bg-danger text-white">
-                <!-- <span class="visually-hidden">unread messages</span> -->
-                </span>
-              </button>
-            </form>
-            <!-- Header-->
-            <a href="https://api.whatsapp.com/send/?phone=559284001860" class="float-petzap custom-button-petzap"
-              target="_blank" type="submit" id="float-button-petzap">
-              <img src="assets/assets_img/whatsapp.png" alt="" width="100%">
-            </a>
-            <button class="float-button custom-button btn-lg" type="submit" id="float-button-carrinho">
-              <i class="text-white bi-cart-fill me-1"></i>
-              <span class="badge" id="badgeCartFloat">0</span>
+        <!-- Ícones -->
+        <div class="icons">
+          <form style="display: flex; justify-content: center; text-align: center;" action="carrinho.html">
+            <button type="submit" class="btn btn-secondary btn-group text-white">
+                <i class="bi bi-cart-fill"></i>
+                <span class="d-none d-lg-inline">Carrinho </span>
+                <span class="badge text-bg-danger" id="badgeCart"></span>
             </button>
-          </div>
+            <div class="navbar-expand-lg navbar-toggle">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            </div>
+            
+          </form>
         </div>
       </div>
-    </nav>
+    </header>
+      
+    <!-- Header-->
+    <a href="https://api.whatsapp.com/send/?phone=5592984444694" class="float-aristeu custom-button-aristeu"
+      target="_blank" type="submit">
+      <img src="assets/assets_img/whatsapp.png" alt="" width="100%">
+    </a>
+    <button class="float-button custom-button btn-lg" type="submit" id="float-button-carrinho">
+      <i class="text-white bi-cart-fill me-1"></i>
+      <span class="badge" id="badgeCartFloat">0</span>
+    </button>
     
     <!-- CAROUSEL -->
     <div class="slideshow-container">
       <div class="mySlides fade">
-        <img src="/assets/carousel_img/site-dm1.jpg"  width="100" class="carousel-image img-fluid">
+        <img src="/assets/carousel_img/site-dm1.jpg" class="carousel-image img-fluid">
       </div>
       <div class="mySlides fade">
-        <img src="/assets/carousel_img/site-dm2.jpg" width="100" class="carousel-image img-fluid">
+        <img src="/assets/carousel_img/site-dm2.jpg" class="carousel-image img-fluid">
       </div>
       <div class="mySlides fade">
-        <img src="/assets/carousel_img/site-dm3.jpg" width="100" class="carousel-image img-fluid">
+        <img src="/assets/carousel_img/site-dm3.jpg" class="carousel-image img-fluid">
+      </div>
+      <div class="mySlides fade">
+        <img src="/assets/carousel_img/site-dm4.jpeg" class="carousel-image img-fluid">
       </div>
       <!-- CAROUSEL-BUTTONS -->
       <div class="text" style="text-align:center">
         <span class="dot" onclick="currentSlide(1)"></span> 
         <span class="dot" onclick="currentSlide(2)"></span> 
-        <span class="dot" onclick="currentSlide(3)"></span> 
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
       </div>
     </div>
-
-    
-    <!-- <nav class="navbar-custom-top-header header">
-      <div class="">
-        <ul class="nav-links-custom-top-header d-none d-lg-flex">
-          <li><a href="#filter" onclick="loja.metodos.obterItensPorTag(1)">Acessórios</a></li>
-          <li><a href="#filter" onclick="loja.metodos.obterItensPorTag(2)">Automação</a></li>
-          <li><a href="#filter" onclick="loja.metodos.obterItensPorTag(3)">Elétrica</a></li>
-          <li><a href="#filter" onclick="loja.metodos.obterItensPorTag(4)">Limpeza</a></li>
-          <li><a href="#filter" onclick="loja.metodos.obterItensPorTag(5)">Peças</a></li>
-          <li><a href="#filter" onclick="loja.metodos.obterItensPorTag(6)">Refrigeração</a></li>
-        </ul>
-        <div class="dropdown d-lg-none">
-          <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="d-none">Categorias</span><i class="bi bi-funnel-fill"></i>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(1)">Acessórios</a></li>
-            <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(2)">Automação</a></li>
-            <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(3)">Elétrica</a></li>
-            <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(4)">Limpeza</a></li>
-            <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(5)">Peças</a></li>
-            <li><a class="dropdown-item" href="#filter" onclick="loja.metodos.obterItensPorTag(6)">Refrigeração</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav> -->
-    <section id="filter">
+    <section>
       <nav id="filtro" class="container navbar navbar-expand-lg">
         <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse d-lg-inline" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-around w-100">
               <li class="nav-item"><a class="nav-link" href="#filter" onclick="loja.metodos.obterItensPorTag(1)">Acessórios</a></li>
               <li class="nav-item"><a class="nav-link" href="#filter" onclick="loja.metodos.obterItensPorTag(2)">Automação</a></li>
@@ -151,6 +109,51 @@
       /* Basic styling */
       body {
         font-family: Arial, Helvetica, sans-serif;
+      }
+
+      /* Estilos Gerais */
+      .navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    
+}
+
+      .header-content {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          justify-content: space-between;
+          flex-wrap: wrap; /* Permite quebra de linha para elementos internos */
+      }
+
+      .logo {
+          flex: 1;
+      }
+
+      .search-bar {
+          /* flex: 2; */
+          display: flex;
+          justify-content: center;
+      }
+
+      /* Estilos para telas menores */
+      @media (max-width: 767px) {
+          .search-bar {
+              order: 2; /* Posiciona a barra de pesquisa abaixo */
+              width: 100%; /* Barra de pesquisa ocupa a largura completa */
+              margin-top: 15px;
+          }
+
+          .logo, .icons {
+              order: 1; /* Mantém o logo e ícones na mesma linha */
+          }
+
+          .header-content {
+              flex-direction: column;
+              align-items: center;
+          }
       }
 
       .sticky {
@@ -214,7 +217,6 @@
       .search-form-custom-top-header {
         display: flex;
         flex-wrap: nowrap; /* Impede a quebra de linha */
-        width: 50%;
         gap: 20px;
       }
       
@@ -297,7 +299,7 @@
 
       .carousel-image {
         width: 100%; /* A imagem preencherá a largura do contêiner */
-        height: 190px; /* Altura fixa ou ajuste conforme necessário */
+        height: auto; /* Altura fixa ou ajuste conforme necessário */
         object-fit: cover ; /* Corta as bordas da imagem e mantém o aspecto */
         overflow: hidden; /* Esconde o excesso da imagem fora das bordas */
       }

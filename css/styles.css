@@ -4682,6 +4682,7 @@ textarea.form-control-lg {
   border-radius: var(--bs-badge-border-radius);
 }
 
+
 .badge_float-button {
   --bs-badge-padding-x: 0.65em;
   --bs-badge-padding-y: 0.35em;
@@ -11036,9 +11037,6 @@ textarea.form-control-lg {
   .container-button-cart button{
     width: 80%;
   }
-
-
-    
 }
 
 /* Classe para o conteúdo da tela de finalizar compra */
@@ -11096,9 +11094,7 @@ form {
   }
 }
 
-
 /* Classe para o conteúdo da lista de resumo da tela de finalizar compra */
-
 .container-list-resume {
   max-width: 80%;
   margin: 20px auto;
@@ -11336,7 +11332,7 @@ form {
 }
 /* IMAGE NAVBAR INÍCIO */
 .navbarTopImage {
-  width: 210px;
+  width: 180px;
 }
 
 /* ====== NAVBAR ======== */
@@ -11410,34 +11406,79 @@ form {
   background-color: none;
  
 }
+@media (max-width: 768px) {
+  .logo, .icons {
+      order: 1;
+  }
+}
+
+.logo {
+  flex: 1;
+}
+.icons {
+  /* flex: 1; */
+  display: flex;
+  justify-content: flex-end;
+}
+@media (max-width: 356px) {
+  .logo {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      background-color: #fff;
+  }
+  .icons {
+    flex: 1;
+    display: flex;
+    justify-content: center !important;
+  }
+}
+
+/* COSTUMIZAÇÃO DO BOTÃO DE CARRINHO - FLOAT-BUTTON */
 .custom-button {
   text-decoration: none;
   background-color: #090db7;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 14px 17px;
   cursor: pointer;
   border: 2px solid transparent;
   border-radius: 32px;
   transition: border-color 0.3s ease;
-
 }
-
 .custom-button:hover {
   color: #090db7;
   border-color: #090db7;
   background-color: white;
 }
 
+/* COSTUMIZAÇÃO DO BOTÃO DE WHATSAPP - FLOAT-BUTTON */
+.custom-button-petzap {
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 32px;
+  transition: border-color 0.3s ease;
+}
+.custom-button-petzap:hover {
+  color: #090db7;
+  border-color: #090db7;
+  background-color: white;
+  padding: 2px 2px 2px 2px;
+}
+
 .icon, .custom-button-text, .badge {
   display: inline-block;
   vertical-align: middle;
-  font-size: 1em;
+  /* font-size: 1em; */
 }
-
+/* 
 .icon, .text {
   margin-right: 5px;
-}
+} */
 
 .badge {
   background-color: white;
@@ -11533,7 +11574,7 @@ form {
   display: none; /* Inicialmente escondido */
   position: fixed;
   /* top: 250px; */
-  bottom: 50px;
+  bottom: 120px;
   /* right: 20px; */
   right: 20px;
   width: 50px;
@@ -11549,6 +11590,24 @@ form {
 
 }
 
+.float-aristeu {
+  display: block; /* Inicialmente escondido */
+  position: fixed;
+  /* top: 400px; */
+  bottom: 50px;
+  /* left: 20px; */
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #6eff00;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Sobrepõe os demais elementos */
+  transition: background-color 0.3s ease;
+  transition: opacity 0.7s ease; /* Transição suave */
+}
 .float-button:hover {
   background-color: #fa6602;
 }
