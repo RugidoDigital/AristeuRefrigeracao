@@ -39,12 +39,6 @@
                 <span class="d-none d-lg-inline">Carrinho </span>
                 <span class="badge text-bg-danger" id="badgeCart"></span>
             </button>
-            <div class="navbar-expand-lg navbar-toggle">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            </div>
-            
           </form>
         </div>
       </div>
@@ -82,9 +76,12 @@
         <span class="dot" onclick="currentSlide(4)"></span>
       </div>
     </div>
-    <section>
+    <section id="filter">
       <nav id="filtro" class="container navbar navbar-expand-lg">
         <div class="container-fluid">
+          <div class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="text-light bi bi-list"></i>
+          </div>
           <div class="collapse navbar-collapse d-lg-inline" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-around w-100">
               <li class="nav-item"><a class="nav-link" href="#filter" onclick="loja.metodos.obterItensPorTag(1)">Acessórios</a></li>
@@ -113,12 +110,11 @@
 
       /* Estilos Gerais */
       .navbar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    
-}
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+      }
 
       .header-content {
           display: flex;
