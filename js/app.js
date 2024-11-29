@@ -183,15 +183,15 @@ loja.metodos = {
         var categorias, sub_categoria = []
         switch (value) {
             case 1:
-                categorias = ['ACESSÓRIO'];
+                categorias = ['AUTOMACAO','ELETRICA','LIMPEZA','PECAS','REFRIGERACAO'];
               break;
 
             case 2:
-                categorias =['AUTOMAÇÃO'];
+                categorias =['AUTOMACAO'];
               break;
 
             case 3:
-                categorias = ['ELÉTRICA'];
+                categorias = ['ELETRICA'];
             break;
 
             case 4:
@@ -199,11 +199,11 @@ loja.metodos = {
             break;
 
             case 5:
-                categorias = ['PEÇA'];
+                categorias = ['PECAS'];
             break;
 
             case 6:
-                categorias = ['REFRIGERAÇÃO'];
+                categorias = ['REFRIGERACAO'];
             break;
 
             default:

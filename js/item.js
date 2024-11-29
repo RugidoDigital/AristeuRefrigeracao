@@ -41,6 +41,12 @@ loja.metodos = {
         const item = string.split(",");
         console.log("Item passado ", item);
         console.log("Item ", item[0]);
+        console.log("Item ", item[1]);
+        console.log("Item ", item[2]);
+        console.log("Item ", item[3]);
+        console.log("Item ", item[4]);
+        console.log("Item ", item[5]);
+        console.log("Item ", item[6]);
 
         loja.metodos.getProximosElementos(parseInt(item[2]) - 1);
         
