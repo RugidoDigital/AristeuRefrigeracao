@@ -63,6 +63,9 @@ loja.metodos = {
                 .replace(/\${name}/g, itens[i].name)
                 .replace(/\${id}/g, itens[i].id)
                 .replace(/\${qtd}/g, itens[i].quantidade)
+                .replace(/\${categoria}/g, itens[i].categoria)
+                .replace(/\${sub_categoria}/g, itens[i].sub_categoria)
+                .replace(/\${codigo}/g, itens[i].codigo)
                 .replace(/\${price}/g, preco) // Preço unitário
                 //.replace(/\${medida}/g, metragem)  // Metragem selecionada
                 .replace(/\${valorMetragem}/g, valorComEspaco); // Valor total com a metragem
@@ -186,8 +189,10 @@ loja.templates = {
                 <div class="description">
                     <!-- Nome do produto -->
                     <h6>\${name}</h6>
-                    <!-- Metragem do produto 
-                    <h2>Metragem: \${medida}m² x 1,22m²</h2>-->
+                    <!-- Informações do produto-->
+                    <h2>Código: \${codigo}</h2>
+                    <h2>Categoria: \${categoria}</h2>
+                    <h2>Sub Categoria: \${sub_categoria}</h2>
                     <br>
                     <!-- Preço do produto -->
                     <p class="fw-bolder">

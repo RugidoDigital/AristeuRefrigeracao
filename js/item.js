@@ -40,13 +40,6 @@ loja.metodos = {
         let string = sessionStorage.getItem('item_data')
         const item = string.split(",");
         console.log("Item passado ", item);
-        console.log("Item ", item[0]);
-        console.log("Item ", item[1]);
-        console.log("Item ", item[2]);
-        console.log("Item ", item[3]);
-        console.log("Item ", item[4]);
-        console.log("Item ", item[5]);
-        console.log("Item ", item[6]);
 
         loja.metodos.getProximosElementos(parseInt(item[2]) - 1);
         
@@ -61,7 +54,7 @@ loja.metodos = {
         .replace(/\${marca}/g, item[4])// MARCA - PRODUTO
         .replace(/\${medida}/g, item[5])// UNIDADE DE MEDIDA - PRODUTO
         .replace(/\${categoria}/g, item[6]) // CATEGORIA - PRODUTO
-        // .replace(/\${codigo}/g, item[7]) // CÓDIGO - PRODUTO
+        .replace(/\${codigo}/g, item[7]) // CÓDIGO - PRODUTO
         
     
         // Adiciona os itens ao #itensProduto
@@ -121,6 +114,7 @@ loja.metodos = {
                 .replace(/\${marca}/g, itens[i].marca)
                 .replace(/\${medida}/g, itens[i].medida)
                 .replace(/\${categoria}/g, itens[i].categoria)
+                .replace(/\${codigo}/g, itens[i].codigo)
     
             // Adiciona os itens ao #itensProdutos
             $("#itensProdutos").append(temp);
@@ -157,6 +151,9 @@ loja.metodos = {
             name: itemParaAdicionar.name,
             preco: itemParaAdicionar.price,
             quantidade: quantidade,
+            codigo: itemParaAdicionar.codigo,
+            categoria: itemParaAdicionar.categoria,
+            sub_categoria: itemParaAdicionar.sub_categoria,
             // metragemSelect: metragemSelect,
             // valUnit: metragemSelect
         });
@@ -334,8 +331,7 @@ loja.templates = {  // R$ \${price}
                                 <ul>
                                     <li>Marca: \${marca}</li>
                                     <li>Categoria: \${categoria}</li>
-
-                                    <!-- <li>Medida: \${medida}</li> -->
+                                    <li>Medida: \${codigo}</li>
                                 </ul>
                             </div>
                             <button class="add-to-cart-btn tolltip m-2" 
@@ -384,7 +380,7 @@ loja.templates = {  // R$ \${price}
             <!-- Product actions-->
             <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                <a class="custom-button mt-auto" href="item.html" onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}',parseFloat('\${price}'.replace(',','.')),'\${marca}','\${medida}','\${categoria}'])"
+                <a class="custom-button mt-auto" href="item.html" onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}',parseFloat('\${price}'.replace(',','.')),'\${marca}','\${medida}','\${categoria}','\${codigo}'])"
                 >Comprar</a></div>
             </div>
         </div>

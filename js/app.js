@@ -124,7 +124,6 @@ loja.metodos = {
         
             // Adiciona o espaço após 'R$' para o formato correto
             const precoID = preco.replace('R$', '');
-
             let temp = loja.templates.item
                 .replace(/\${img}/g, itemExibidosNoMenu[i].img)
                 .replace(/\${name}/g, itemExibidosNoMenu[i].name)
@@ -133,9 +132,8 @@ loja.metodos = {
                 .replace(/\${price}/g, itemExibidosNoMenu[i].price)
                 .replace(/\${marca}/g, itemExibidosNoMenu[i].marca)
                 .replace(/\${medida}/g, itemExibidosNoMenu[i].medida)
-                .replace(/\${categoria}/g, itemExibidosNoMenu[i].categoria);
-                
-    
+                .replace(/\${categoria}/g, itemExibidosNoMenu[i].categoria)
+                .replace(/\${codigo}/g, itemExibidosNoMenu[i].codigo);
             // Adiciona os itens ao #itensProdutos
             
 
@@ -336,7 +334,7 @@ loja.templates = {
                                 <ul>
                                     <li>Marca: \${marca}</li>
                                     <li>Categoria: \${categoria}</li>
-                                    <!-- <li>Medida: \${medida}</li> -->
+                                    <li>Código: \${codigo}</li>
                                 </ul>
                             </div>
                         </figcaption>			
@@ -357,7 +355,7 @@ loja.templates = {
                 <!-- Product actions-->
                 <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                     <div class="text-center">
-                    <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price}','\${marca}','\${medida}','\${categoria}'])"
+                    <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price}','\${marca}','\${medida}','\${categoria}','\${codigo}'])"
                     >Comprar</a></div>
                 </div>
             </div>
