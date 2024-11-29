@@ -967,7 +967,7 @@ var  MENU = [
         "NCM": 71069220,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "AR CONDICIONADO",
-        "price": "1.227.06",
+        "price": 1227.06,
         "medida": "KG",
         "img": "assets/img_produtos/SOLDA_SILPHOSCOPER_2.40X460MM_BRASIL_SOL.webp"
     },
@@ -2515,7 +2515,7 @@ var  MENU = [
         "NCM": 84143019,
         "categoria": "PECAS",
         "sub_categoria": "REFRIGERACAO",
-        "price": "3.453.37",
+        "price": 3453.37,
         "medida": "PC",
         "img": "assets/img_produtos/COMP_SCROLL_PANASSONIC_220V_TRIF_5TR_R410.webp"
     },
@@ -2527,7 +2527,7 @@ var  MENU = [
         "NCM": 84143019,
         "categoria": "PECAS",
         "sub_categoria": "REFRIGERACAO",
-        "price": "3.651.76",
+        "price": 3651.76,
         "medida": "PC",
         "img": "assets/img_produtos/COMP_SCROLL_PANASSONIC_220V_TRIF_R22_60K.webp"
     },
@@ -2695,7 +2695,7 @@ var  MENU = [
         "NCM": 90271000,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "1.950.00",
+        "price": 1950.00,
         "medida": "PC",
         "img": "assets/img_produtos/DMG_3_MANIFOLD_DIGITAL_COM_02_MANOMETROS.jpg"
     },
@@ -2707,7 +2707,7 @@ var  MENU = [
         "NCM": 90271000,
         "categoria": "AUTOMACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "3.524.07",
+        "price": 3524.07,
         "medida": "PC",
         "img": "assets/img_produtos/ILD_200_DETECTOR_DIGITAL.jpg"
     },
@@ -2719,7 +2719,7 @@ var  MENU = [
         "NCM": 90262010,
         "categoria": "AUTOMACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "1.180.00",
+        "price": 1180.00,
         "medida": "UN",
         "img": "assets/img_produtos/MS_100_MANIFOLD_DIGITAL_2_VIAS_BLUETOOTH.webp"
     },
@@ -2731,7 +2731,7 @@ var  MENU = [
         "NCM": 90262010,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "5.580.00",
+        "price": 5580.00,
         "medida": "PC",
         "img": "assets/img_produtos/MS_4000_MANIFOLD_DIGITAL_COM_VACUOMETRO_BLUETOOTH_4_VIAS.webp"
     },
@@ -2839,7 +2839,7 @@ var  MENU = [
         "NCM": 90262090,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "2.850.00",
+        "price": 2850.00,
         "medida": "PC",
         "img": "assets/img_produtos/MANIFOLD_DIGITAL_COM_02_MANOMETROS_2_VIAS_SURYHA.jpg"
     },
@@ -2863,7 +2863,7 @@ var  MENU = [
         "NCM": 84798999,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "7.366.60",
+        "price": 7366.60,
         "medida": "PC",
         "img": "assets/img_produtos/RECOLHEDORA_E_RECICLADORA_DE_GAS_COM_SEP_OLEO_3.4_SURYHA.jpg"
     },
@@ -2875,7 +2875,7 @@ var  MENU = [
         "NCM": 90268000,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "1.718.15",
+        "price": 1718.15,
         "medida": "PC",
         "img": "assets/img_produtos/KIT_TESTE_AR_SURYHA.jpg"
     },
@@ -2887,7 +2887,7 @@ var  MENU = [
         "NCM": 90262090,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "2.566.52",
+        "price": 2566.52,
         "medida": "PC",
         "img": "assets/img_produtos/VACUOMETRO_DIGITAL_COM_BLUETOOH_SURYHA.jpg"
     },
@@ -2983,7 +2983,7 @@ var  MENU = [
         "NCM": 84141000,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "2.389.55",
+        "price": 2389.55,
         "medida": "PC",
         "img": "assets/img_produtos/BOMBA_DE_VACUO_VP2200D_12CFM_DUPLO_ESTAGIO_1HP_FRIVEN.jpg"
     },
@@ -2995,7 +2995,7 @@ var  MENU = [
         "NCM": 84141000,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "1.325.00",
+        "price": 1325.00,
         "medida": "PC",
         "img": "assets/img_produtos/BOMBA_DE_VACUO_VP2200D_12CFM_DUPLO_ESTAGIO_1HP_FRIVEN.jpg"
     },
@@ -3007,7 +3007,7 @@ var  MENU = [
         "NCM": 84141000,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "2.138.06",
+        "price": 2138.06,
         "medida": "UND",
         "img": "assets/img_produtos/BOMBA_DE_VACUO_VP2200D_12CFM_DUPLO_ESTAGIO_1HP_FRIVEN.jpg"
     },
@@ -3031,7 +3031,7 @@ var  MENU = [
         "NCM": 84145990,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "1.136.16",
+        "price": 1136.16,
         "medida": "PC",
         "img": "assets/img_produtos/CORTINA_DE_AR_COM_CONTROLE_REMOTO_ONE_BR_VIX.webp"
     },
@@ -3043,7 +3043,7 @@ var  MENU = [
         "NCM": 84145990,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "1.463.58",
+        "price": 1463.58,
         "medida": "PC",
         "img": "assets/img_produtos/CORTINA_DE_AR_COM_CONTROLE_REMOTO_ONE_BR_VIX.webp"
     },
@@ -3055,7 +3055,7 @@ var  MENU = [
         "NCM": 84145990,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "2.044.88",
+        "price": 2044.88,
         "medida": "PC",
         "img": "assets/img_produtos/CORTINA_DE_AR_COM_CONTROLE_REMOTO_ONE_BR_VIX.webp"
     },
@@ -3079,7 +3079,7 @@ var  MENU = [
         "NCM": 84151011,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "1.980.00",
+        "price": 1980.00,
         "medida": "UN",
         "img": "assets/img_produtos/AR_CONDICIONADO_SPLIT_CONVENCIONAL_VIX.png"
     },
@@ -3091,7 +3091,7 @@ var  MENU = [
         "NCM": 84151011,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "3.780.15",
+        "price": 3780.15,
         "medida": "UN",
         "img": "assets/img_produtos/AR_CONDICIONADO_SPLIT_CONVENCIONAL_VIX.png"
     },
@@ -3103,7 +3103,7 @@ var  MENU = [
         "NCM": 84151011,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "5.793.87",
+        "price": 5793.87,
         "medida": "UN",
         "img": "assets/img_produtos/AR_CONDICIONADO_SPLIT_CONVENCIONAL_VIX.png"
     },
@@ -3115,7 +3115,7 @@ var  MENU = [
         "NCM": 84151011,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "1.770.00",
+        "price": 1770.00,
         "medida": "UN",
         "img": "assets/img_produtos/AR_CONDICIONADO_SPLIT_CONVENCIONAL_VIX.png"
     },
@@ -3127,7 +3127,7 @@ var  MENU = [
         "NCM": 84151011,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "2.890.00",
+        "price": 2890.00,
         "medida": "UN",
         "img": "assets/img_produtos/AR_CONDICIONADO_SPLIT_CONVENCIONAL_VIX.png"
     },
@@ -3139,7 +3139,7 @@ var  MENU = [
         "NCM": 84151011,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "2.350.00",
+        "price": 2350.00,
         "medida": "UN",
         "img": "assets/img_produtos/AR_CONDICIONADO_SPLIT_INVERTER_VIX.png"
     },
@@ -3151,7 +3151,7 @@ var  MENU = [
         "NCM": 84151011,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "3.185.00",
+        "price": 3185.00,
         "medida": "UN",
         "img": "assets/img_produtos/AR_CONDICIONADO_SPLIT_INVERTER_VIX.png"
     },
@@ -3163,7 +3163,7 @@ var  MENU = [
         "NCM": 84151011,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "4.138.51",
+        "price": 4138.51,
         "medida": "UN",
         "img": "assets/img_produtos/AR_CONDICIONADO_SPLIT_INVERTER_VIX.png"
     },
@@ -3175,7 +3175,7 @@ var  MENU = [
         "NCM": 84151011,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "5.680.00",
+        "price": 5680.00,
         "medida": "UN",
         "img": "assets/img_produtos/AR_CONDICIONADO_SPLIT_INVERTER_VIX.png"
     },
@@ -3187,7 +3187,7 @@ var  MENU = [
         "NCM": 84151011,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "2.408.70",
+        "price": 2408.70,
         "medida": "UN",
         "img": "assets/img_produtos/AR_CONDICIONADO_SPLIT_INVERTER_VIX.png"
     },
@@ -3223,7 +3223,7 @@ var  MENU = [
         "NCM": 84213990,
         "categoria": "PECAS",
         "sub_categoria": "REFRIGERACAO",
-        "price": "1.169.16",
+        "price": 1169.16,
         "medida": "PC",
         "img": "assets/img_produtos/FILTRO_SEC_3.8_ROSCA_083_ELGIN.webp"
     },
@@ -4303,7 +4303,7 @@ var  MENU = [
         "NCM": 90281019,
         "categoria": "REFRIGERACAO",
         "sub_categoria": "REFRIGERACAO",
-        "price": "1.941.97",
+        "price": 1941.97,
         "medida": "PC",
         "img": "assets/img_produtos/CONTADOR_ELETRONICO_GAS_COM_SOLENOIDE_100KG_FRIVEN.png"
     },
