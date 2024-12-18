@@ -4,60 +4,54 @@ var carrinhoDeCompras = {
 
     // Adicionar um item ao carrinho
     adicionarItem: function(novoItem) {
-        // Verificar se o item já existe no carrinho
+        // Carrega os itens atuais do carrinho
         carrinhoDeCompras.carregarCarrinho();
-
-        var itemExistente = this.itens.find(function(item) {
-            return item.id === novoItem.id;
-        });
+    
+        // Procura o item no carrinho pelo ID e código
+        let itemExistente = this.itens.find(item => item.id === novoItem.id && item.codigo === novoItem.codigo);
     
         if (itemExistente) {
-            // Se o item já existe, apenas aumente sua quantidade
+            // Se o item já existe, aumenta a quantidade
             itemExistente.quantidade += novoItem.quantidade;
         } else {
-            // Caso contrário, adicione o novo item ao carrinho
+            // Caso contrário, adiciona como um novo item
             this.itens.push(novoItem);
         }
     
-        // Atualizar o carrinho
+        // Salva o carrinho atualizado
+        this.salvarCarrinho();
         this.atualizarCarrinho();
     },
     
     // Remover um item do carrinho
-    removerItem: function(id) {
-        //id = String(id);
-        let index = this.itens.findIndex(item => item.id === id)
-
+    removerItem: function(id, codigo) {
+        // Procura o índice do item no carrinho pelo ID e código
+        let index = this.itens.findIndex(item => item.id === id && item.codigo === codigo);
+    
         if (index !== -1) {
+            // Remove o item pelo índice
             this.itens.splice(index, 1);
-            carrinhoDeCompras.salvarCarrinho();
+            this.salvarCarrinho();
+            this.atualizarCarrinho();
         } else {
-            console.error("Item não encontrado com o ID:", id);
+            console.error(`Item não encontrado para remover: ID ${id}, Código ${codigo}`);
         }
     },
 
     // Alterar a quantidade de um item no carrinho
-    alterarQuantidade: function(id, novaQuantidade) {
-        // Convertendo o id para string
-        //id = String(id);
-    
-        let index = this.itens.findIndex(item => item.id === id);
-        console.log("item: ", this.itens.indexOf(item => item.id === id));
+    alterarQuantidade: function(id, codigo, novaQuantidade) {
+        // Procura o item no carrinho pelo ID e código
+        let item = this.itens.find(item => item.id === id && item.codigo === codigo);
+        console.log("item: ", this.itens.indexOf(item => item.id === id && item.codigo === codigo));
         console.log("itens: ", this.itens);
         console.log("id_: ", id);
-    
-        // Verificar se o item foi encontrado
-        if (index !== -1) {
-            // Verificar se a nova quantidade é válida
-            if (novaQuantidade > 0) {
-                this.itens[index].quantidade = novaQuantidade;
-                this.atualizarCarrinho();
-            } else {
-                this.removerItem(index);
-            }
-            carrinhoDeCompras.salvarCarrinho();
+        if (item) {
+            // Atualiza a quantidade
+            item.quantidade = novaQuantidade;
+            this.salvarCarrinho();
+            this.atualizarCarrinho();
         } else {
-            console.error("Item não encontrado com o ID:", id);
+            console.error(`Item não encontrado para alterar a quantidade: ID ${id}, Código ${codigo}`);
         }
     },
 

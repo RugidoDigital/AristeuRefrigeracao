@@ -67,7 +67,7 @@ loja.metodos = {
                 .replace(/\${sub_categoria}/g, itens[i].sub_categoria)
                 .replace(/\${codigo}/g, itens[i].codigo)
                 .replace(/\${price}/g, preco) // Preço unitário
-                //.replace(/\${medida}/g, metragem)  // Metragem selecionada
+                .replace(/\${medida}/g, itens[i].medida)  // Metragem selecionada
                 .replace(/\${valorMetragem}/g, valorComEspaco); // Valor total com a metragem
     
             // Adiciona os itens ao #itensProdutosCarrinho
@@ -77,15 +77,14 @@ loja.metodos = {
         loja.metodos.atualizarValorTotal(loja.metodos.obterValorTotal());
     },    
 
-    btnSubtract: (id) =>{
-        let quantityLabel = document.getElementById('quantity-label-' + id);
+    btnSubtract: (id, codigo) =>{
+        let quantityLabel = document.getElementById('quantity-label-' + id + codigo);
         quantidade = parseInt(quantityLabel.textContent);
 
         if (quantidade > 1) {
             quantidade--;
             quantityLabel.textContent = quantidade;
-
-            carrinhoDeCompras.alterarQuantidade(id, quantidade);
+            carrinhoDeCompras.alterarQuantidade(id, codigo, quantidade);
             loja.metodos.atualizarValorTotal(loja.metodos.obterValorTotal());
 
         }
@@ -93,21 +92,21 @@ loja.metodos = {
         
     },
 
-    btnAdd: (id) =>{
-        let quantityLabel = document.getElementById('quantity-label-' + id);
+    btnAdd: (id, codigo) =>{
+        let quantityLabel = document.getElementById('quantity-label-' + id + codigo);// Seleciona o rótulo com ID e código
         quantidade = parseInt(quantityLabel.textContent);
 
         quantidade++;
         quantityLabel.textContent = quantidade;
 
-        carrinhoDeCompras.alterarQuantidade(id, quantidade);
+        carrinhoDeCompras.alterarQuantidade(id, codigo, quantidade);
         loja.metodos.atualizarValorTotal(loja.metodos.obterValorTotal());
 
     
     },
-    btnRemove: (id) =>{
+    btnRemove: (id, codigo) =>{
     
-        carrinhoDeCompras.removerItem(id)
+        carrinhoDeCompras.removerItem(id, codigo)
         loja.metodos.atualizarBadge(carrinhoDeCompras.calcularTotalQuantidade());
         loja.metodos.obterProdutosCarrinho();
         loja.metodos.atualizarValorTotal(loja.metodos.obterValorTotal());
@@ -179,9 +178,9 @@ loja.templates = {
                     <div class="photo card-img" style="background-image:url(\${img})">
                         <!-- Controle de quantidade -->
                         <div onclick="loja.metodos.obterProdutosCarrinho()" class="quantity-control d-flex justify-content-center align-items-center" style="width: 100px">
-                            <button class="btn-cart-control btn-subtract" onclick="loja.metodos.btnSubtract(\${id})">-</button>
-                            <span class="quantity-label mx-2" id="quantity-label-\${id}"  >\${qtd}</span>
-                            <button class="btn-cart-control btn-add" onclick="loja.metodos.btnAdd(\${id})">+</button>
+                            <button class="btn-cart-control btn-subtract" onclick="loja.metodos.btnSubtract(\${id}, '\${codigo}')">-</button>
+                            <span class="quantity-label mx-2" id="quantity-label-\${id}\${codigo}">\${qtd}</span>
+                            <button class="btn-cart-control btn-add" onclick="loja.metodos.btnAdd(\${id}, '\${codigo}')">+</button>
                         </div>
                     </div>
                 </div>
@@ -190,6 +189,7 @@ loja.templates = {
                     <!-- Nome do produto -->
                     <h6>\${name}</h6>
                     <!-- Informações do produto-->
+                    <h2>Medida: \${medida}</h2>
                     <h2>Código: \${codigo}</h2>
                     <h2>Categoria: \${categoria}</h2>
                     <h2>Sub Categoria: \${sub_categoria}</h2>
@@ -205,7 +205,7 @@ loja.templates = {
                     </p>
                     <!-- remoção -->
                     <p class="read-more">
-                        <a class="btn btn-outline-danger mt-auto" onclick="loja.metodos.btnRemove(\${id})"> 
+                        <a class="btn btn-outline-danger mt-auto" onclick="loja.metodos.btnRemove(\${id}, '\${codigo}')"> 
                             Remover
                         </a>
                     </p>

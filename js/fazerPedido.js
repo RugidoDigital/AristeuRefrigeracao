@@ -97,6 +97,8 @@ loja.metodos = {
                 .replace(/\${qtd}/g, itens[i].quantidade)
                 .replace(/\${total}/g, preco) // Preço unitário
                 .replace(/\${price}/g, itens[i].preco)
+                .replace(/\${medida}/g, itens[i].medida)
+                .replace(/\${codigo}/g, itens[i].codigo)
                 //.replace(/\${medida}/g, metragem) Metragem selecionada
                 .replace(/\${valorMetragem}/g, valorPtBR); // Valor total formatado com a metragem
     
@@ -325,8 +327,9 @@ loja.templates = {
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">\${name}</h5>
-                        <!-- medida do produto 
-                        <p class="text-muted">Metragem: \${medida}m² x 1.22m²</p>-->
+                        <!-- medida do produto -->
+                        <p class="text-muted">Medida: \${medida}</p>
+                        <p class="text-muted">Código: \${codigo}</p>
                         <div class="d-flex justify-content-between">
                             <div>
                                 <p class="card-text">Quantidade: \${qtd}</p>

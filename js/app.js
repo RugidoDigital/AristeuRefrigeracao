@@ -68,8 +68,6 @@ function showSlides(n) {
   autoSlide = setTimeout(showSlides, 3000);  // Troca de imagem a cada 2 segundos
 }
 // ---------------- END-CAROUSEL-FUNCTION ----------------
-
-
 var itemExibidosNoMenu = [];
 var loja = {};
 loja.eventos = {
@@ -99,21 +97,21 @@ loja.metodos = {
         $("#btnVerMais").addClass('collapse');
         //$("#btnVerMais").classList.remove('show')
     },
-
-
-    obterItensLoja:(busca=false) =>{
-
+    
+    
+    
+    obterItensLoja: function (busca = false) {
         // Limpa o conteúdo antes de adicionar os itens
         if(busca){
             $("#itensProdutos").html('');
         }
-
+    
         tamanhoDaListagem = itemExibidosNoMenu.length;
         console.log("Tamanho da listagem", tamanhoDaListagem);
         console.log("Filhos da div ", $("#itensProdutos").children().length);
         var lastIndex = $("#itensProdutos").children().length;
         console.log('Ultimo index exibido -> ',lastIndex);
-
+         
         for (var i = lastIndex; i < tamanhoDaListagem && i < lastIndex + 25; i++) {
             
             //Dessa forma o R$ fica na frente do valor do produto
@@ -121,36 +119,19 @@ loja.metodos = {
                 style: 'currency',
                 currency: 'BRL'
             }).format(itemExibidosNoMenu[i].price); // Formata o preço no formato de moeda BRL
-        
-            // Adiciona o espaço após 'R$' para o formato correto
-            const precoID = preco.replace('R$', '');
+    
             let temp = loja.templates.item
                 .replace(/\${img}/g, itemExibidosNoMenu[i].img)
                 .replace(/\${name}/g, itemExibidosNoMenu[i].name)
                 .replace(/\${id}/g, itemExibidosNoMenu[i].id)
-                .replace(/\${price-show}/g, precoID)  // Exibe o preço já formatado
+                .replace(/\${price-show}/g, preco.replace('R$', ''))
                 .replace(/\${price}/g, itemExibidosNoMenu[i].price)
                 .replace(/\${marca}/g, itemExibidosNoMenu[i].marca)
                 .replace(/\${medida}/g, itemExibidosNoMenu[i].medida)
                 .replace(/\${categoria}/g, itemExibidosNoMenu[i].categoria)
-                .replace(/\${codigo}/g, itemExibidosNoMenu[i].codigo);
-            // Adiciona os itens ao #itensProdutos
-            
-
-            //imagemExiste(itemExibidosNoMenu[i].img)
-            //    .then(existe => {
-            //        if (existe) {
-            //            if(itemExibidosNoMenu[i].img ==="assets/img_produtos/"){
-            //                console.log('A imagem não existe.');
-            //            }else
-            //                console.log('A imagem existe.');
+                .replace(/\${codigo}/g, itemExibidosNoMenu[i].codigo)
+                //.replace(/\${opcoes_medidas}/g, itemExibidosNoMenu[i].opcoes_medidas)
             $("#itensProdutos").append(temp);
-            //        } else {
-            //            console.log('A imagem não existe.');
-            //            // Faça algo se a imagem não existir
-            //        }
-            //    });
-
         }
 
         lastIndex = $("#itensProdutos").children().length;
@@ -170,7 +151,7 @@ loja.metodos = {
         }
 
     },
-
+        
     verMais: () => {
 
        loja.metodos.obterItensLoja();
@@ -181,7 +162,7 @@ loja.metodos = {
         var categorias, sub_categoria = []
         switch (value) {
             case 1:
-                categorias = ['AUTOMACAO','ELETRICA','LIMPEZA','PECAS','REFRIGERACAO'];
+                categorias = ['AUTOMACAO','ELETRICA','LIMPEZA','PEÇAS','REFRIGERACAO'];
               break;
 
             case 2:
@@ -197,7 +178,7 @@ loja.metodos = {
             break;
 
             case 5:
-                categorias = ['PECAS'];
+                categorias = ['PEÇAS'];
             break;
 
             case 6:
@@ -248,10 +229,12 @@ loja.metodos = {
         
     },
 
-    verPaginaDoItem: (value) =>{
-        console.log(value);
+    verPaginaDoItem: (value) => {
+        console.log("Valor recebido:", value);
         sessionStorage.setItem('item_data', value);
     },
+        
+    
 
     atualizarBadge:(value) =>{
         var badgeSpan = document.getElementById('badgeCart');
@@ -355,8 +338,9 @@ loja.templates = {
                 <!-- Product actions-->
                 <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                     <div class="text-center">
-                    <a class="custom-button mt-auto" href="item.html"onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price}','\${marca}','\${medida}','\${categoria}','\${codigo}'])"
-                    >Comprar</a></div>
+                        <a class="custom-button mt-auto" href="item.html" onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price}','\${marca}','\${medida}','\${categoria}','\${codigo}'])">Comprar</a>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

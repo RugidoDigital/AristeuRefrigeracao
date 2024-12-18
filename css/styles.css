@@ -11508,14 +11508,13 @@ form {
   }
 }
 
-
 .social-ico-icon {
   font-size: 1.2em; /* Tamanho do ícone */
   color: #090db7; /* Cor do ícone */
 }
 
 .footer-aling{
-  text-align: center;
+  text-align: center; 
   justify-content: space-around;
 }
 

@@ -54,42 +54,42 @@
               </div>
           </div>
       </div>
-  </nav>
-        
-    <!-- test section items section-->
-    <section class="py-5 bg-light">
-      <div class="container px-4 px-lg-5 mt-5">
-        <div class="d-flex justify-content-between align-items-center">
-          <h2 class="fw-bolder mb-4">Produtos no Carrinho</h2>
-          <h2 id="total-carrinho" class="fw-bolder mb-4"></h2>
-        </div>
-        <div id="div-de-alerta">
-          <div class="card mb-4">
-            <h3 class="fw-bolder mb-4" style="margin: auto; padding: 8px; font-weight: normal;">Seu carrinho ainda está vazio</h3>
-            <img class="card-img-top" src="assets/assets_img/carrinho_vazio.png" style="margin: auto;" alt="..." />
+    </nav>
+    <main style="flex: 1;">
+      <!-- test section items section-->
+      <section class="py-5 bg-light">
+        <div class="container px-4 px-lg-5 mt-5">
+          <div class="d-flex justify-content-between align-items-center">
+            <h2 class="fw-bolder mb-4">Produtos no Carrinho</h2>
+            <h2 id="total-carrinho" class="fw-bolder mb-4"></h2>
+          </div>
+          <div id="div-de-alerta">
+            <div class="card mb-4">
+              <h3 class="fw-bolder mb-4" style="margin: auto; padding: 8px; font-weight: normal;">Seu carrinho ainda está vazio</h3>
+              <img class="card-img-top" src="assets/assets_img/carrinho_vazio.png" style="margin: auto;" alt="..." />
+            </div>
+          </div>
+          <div id="itensProdutosCarrinho" class="col mr-0 ml-0 animated fadeIn hidden">
+            <!-- Lista -->
+          </div>
+          <div class="container-button-cart">
+            <a class="btn btn-outline-dark flex-shrink-1 mb-3"  type="button" href="index.html"
+              onclick="loja.metodos.obterValorTotal()">
+              <i class="bi bi-arrow-90deg-left"></i>
+              Continuar Comprando
+            </a>
+                    
+            <a id="btn-finalizar-compra" class="btn btn-outline-dark flex-shrink-1 mb-3"  type="button" href="fazerPedido.html"
+              onclick="loja.metodos.obterValorTotal()">
+              Finalizar Compra
+              <i class="bi bi-arrow-right"></i>
+            </a>
           </div>
         </div>
-        <div id="itensProdutosCarrinho" class="col mr-0 ml-0 animated fadeIn hidden">
-          <!-- Lista -->
-        </div>
-        <div class="container-button-cart">
-          <a class="btn btn-outline-dark flex-shrink-1 mb-3"  type="button" href="index.html"
-            onclick="loja.metodos.obterValorTotal()">
-            <i class="bi bi-arrow-90deg-left"></i>
-            Continuar Comprando
-          </a>
-                  
-          <a id="btn-finalizar-compra" class="btn btn-outline-dark flex-shrink-1 mb-3"  type="button" href="fazerPedido.html"
-            onclick="loja.metodos.obterValorTotal()">
-            Finalizar Compra
-            <i class="bi bi-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-    </section>
-
+      </section>
+    </main>
     <!-- Footer-->
-    <footer class="py-5 bg-dark">
+    <footer style="text-align: center; padding: 10px;" class="py-5 bg-dark">
       <div class="container">
         <div class="text-center" style="text-decoration:none;">
           <a href="https://www.facebook.com/AristeuRefrigeracao/" target="_blank" class="social-icon-footer">
