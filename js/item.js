@@ -200,8 +200,6 @@ loja.metodos = {
         console.log("Quantidade selecionada:", quantidade);
         console.log("Preço total calculado:", precoTotal);
     },
-     // Adiciona o espaço após 'R$' para o formato correto
-     // const valorComEspaco = precoTotalFormatado.replace('R$', '');
     // Atualizar o carrinho na interface do usuário
     atualizarCarrinho: function() {
         // Aqui você pode implementar a lógica para atualizar a interface do carrinho na sua página HTML
@@ -287,41 +285,13 @@ loja.metodos = {
         // Salva o carrinho atualizado no sessionStorage
         sessionStorage.setItem('carrinho', JSON.stringify(carrinho));
         console.log("Produto adicionado ao carrinho:", produtoAtualizado);
-        alert("Produto adicionado ao carrinho com sucesso!");
+        // alert("Produto adicionado ao carrinho com sucesso!"); // Test
     
         // Atualiza a interface
         carrinhoDeCompras.carregarCarrinho();
         loja.metodos.atualizarBadge(carrinhoDeCompras.calcularTotalQuantidade());
         loja.metodos.mensagem('Item adicionado ao carrinho', 'green');
     },
-    
-    
-
-    // adicionarAoCarrinho:() =>{
-    //     let quantityLabel = document.getElementById('inputQuantity');
-    //     quantidade = parseInt(quantityLabel.textContent);
-    //     // let metragemSelect = parseFloat(document.getElementById('metros').value);
-    //     id = (parseInt(value)) - 1
-    //     var itemParaAdicionar = MENU[id];
-    //     carrinhoDeCompras.adicionarItem({
-    //         img: itemParaAdicionar.img,
-    //         id: itemParaAdicionar.id,
-    //         name: itemParaAdicionar.name,
-    //         preco: itemParaAdicionar.price,
-    //         quantidade: quantidade,
-    //         codigo: itemParaAdicionar.codigo,
-    //         categoria: itemParaAdicionar.categoria,
-    //         sub_categoria: itemParaAdicionar.sub_categoria,
-    //         opcoes_medidas: itemParaAdicionar.opcoes_medidas,
-    //     });
-
-    //     carrinhoDeCompras.salvarCarrinho();
-    //     carrinhoDeCompras.carregarCarrinho();
-    //     loja.metodos.atualizarBadge(carrinhoDeCompras.calcularTotalQuantidade());
-
-    //     loja.metodos.mensagem('Item adicionado ao carrinho', 'green');
-
-    // },
 
     atualizarBadge:(value) =>{
         var badgeSpan = document.getElementById('badgeCart');
