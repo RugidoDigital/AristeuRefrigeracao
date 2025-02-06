@@ -16,6 +16,15 @@ loja.eventos = {
 
 loja.metodos = {
 
+    voltarParaAnterior: () => {
+        if (window.history.length > 1) {
+            // Voltar para a página anterior
+            window.history.back();
+        } else {
+            // Caso não haja página anterior, redirecionar para a rota principal ou outra página
+            window.location.href = '/';
+        }
+    },
     atualizarBadge:(value) =>{
         //var badgeSpan = document.getElementById('badgeCart');
         //badgeSpan.textContent = value;
@@ -178,9 +187,9 @@ loja.templates = {
                     <div class="photo card-img" style="background-image:url(\${img})">
                         <!-- Controle de quantidade -->
                         <div onclick="loja.metodos.obterProdutosCarrinho()" class="quantity-control d-flex justify-content-center align-items-center" style="width: 100px">
-                            <button class="btn-cart-control btn-subtract" onclick="loja.metodos.btnSubtract(\${id}, '\${codigo}')">-</button>
+                            <button class="btn-cart-control btn-subtract" onclick="loja.metodos.btnSubtract(\${id})">-</button>
                             <span class="quantity-label mx-2" id="quantity-label-\${id}\${codigo}">\${qtd}</span>
-                            <button class="btn-cart-control btn-add" onclick="loja.metodos.btnAdd(\${id}, '\${codigo}')">+</button>
+                            <button class="btn-cart-control btn-add" onclick="loja.metodos.btnAdd(\${id})">+</button>
                         </div>
                     </div>
                 </div>
@@ -203,9 +212,9 @@ loja.templates = {
                             </span>
                         </h5>
                     </p>
-                    <!-- remoção -->
+                    <!-- remoção ,'\${codigo}'-->
                     <p class="read-more">
-                        <a class="btn btn-outline-danger mt-auto" onclick="loja.metodos.btnRemove(\${id}, '\${codigo}')"> 
+                        <a class="btn btn-outline-danger mt-auto" onclick="loja.metodos.btnRemove(\${id})"> 
                             Remover
                         </a>
                     </p>

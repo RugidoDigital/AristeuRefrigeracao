@@ -28,22 +28,33 @@ loja.eventos = {
     init: () => {
         console.log("Função init está sendo chamada.");
         console.log("ID do produto: ", sessionStorage.getItem('itemSelecionadoID'));
-        // console.log("Item selecionado: ", sessionStorage.getItem('item_data'));
-
         loja.metodos.obterItemSelecionado();
         carrinhoDeCompras.carregarCarrinho();
         loja.metodos.atualizarBadge(carrinhoDeCompras.calcularTotalQuantidade());
-        loja.metodos.ProdutoSelected();
+        
         loja.metodos.atualizarPreco();
+        
     }
 }
 
 loja.metodos = {
+    
+    voltarParaAnterior: () => {
+        if (window.history.length > 1) {
+            // Voltar para a página anterior
+            window.history.back();
+        } else {
+            // Caso não haja página anterior, redirecionar para a rota principal ou outra página
+            window.location.href = '/';
+        }
+    },
 
     obterItemSelecionado:() =>{
-        let string = sessionStorage.getItem('item_data');
-        const item = string.split(",");
+        let string = sessionStorage.getItem('item_data')
+        let item = string.split(",");
         console.log("Item passado ", item);
+        console.log("Item ", item[0]);
+
         loja.metodos.getProximosElementos(parseInt(item[2]) - 1);
     
         // Formata o preço
@@ -61,17 +72,15 @@ loja.metodos = {
             .replace(/\${sub_categoria}/g, item[6]) // SUB-CATEGORIA - PRODUTO
             .replace(/\${codigo}/g, item[7]) // CÓDIGO - PRODUTO
         
-            
         // Adiciona os itens ao #itensProduto
         $("#itensProduto").append(temp);
-        
     },
 
     ProdutoSelected:() => {
         let string = sessionStorage.getItem('item_data');
         const NumberID = string.split(","); // Chama a JSON do ID selecionado em Comprar
         const NumberItem = parseInt(NumberID[2], 10); // Seleciona apenas o número do ID
-        let optionsHTML = ''; 
+        let optionsHTML = `<option disabled selected>Selecionar medida:</option>'`; 
         const idDesejado = NumberItem; // Substitua por qualquer ID para teste
         
         const produto = MENU.find((item) => item.id === idDesejado);
@@ -168,37 +177,89 @@ loja.metodos = {
         });
     },
 
+    // atualizarPreco: () => {
+    //     try {
+    //         // Obtendo os dados do produto do sessionStorage
+    //         const string = sessionStorage.getItem('item_data');
+    //         if (!string) {
+    //             console.error("Nenhum dado encontrado no sessionStorage.");
+    //             return;
+    //         }
+    //         const item = string.split(",");
+    
+    //         // Obtendo o select e a opção selecionada
+    //         const select = document.getElementById('metros');
+    //         if (!select) {
+    //             console.error("Elemento select com ID 'metros' não encontrado.");
+    //             return;
+    //         }
+    //         const optionSelected = select.options[select.selectedIndex];
+    
+    //         // Determinando o preço do produto (por unidade)
+    //         let valorProduto = 0;
+    //         if (optionSelected && optionSelected.hasAttribute('data-price')) {
+    //             valorProduto = parseFloat(optionSelected.getAttribute('data-price'));
+    //         } else {
+    //             valorProduto = parseFloat(item[3]) || 0; // Valor padrão
+    //             console.log("Nenhuma medida selecionada. Usando valor inicial ou padrão do produto.");
+    //         }
+    
+    //         // Obtendo a quantidade selecionada pelo usuário
+    //         const quantityElement = document.getElementById('inputQuantity');
+    //         if (!quantityElement) {
+    //             console.error("Elemento com ID 'inputQuantity' não encontrado.");
+    //             return;
+    //         }
+    //         const quantidade = parseInt(quantityElement.innerText) || 1; // Valor padrão para quantidade
+    
+    //         // Calculando o preço total com base na quantidade
+    //         const precoTotal = valorProduto * quantidade;
+    
+    //         // Formatando o preço total para o formato brasileiro (R$)
+    //         const precoTotalFormatado = new Intl.NumberFormat('pt-BR', {
+    //             style: 'currency',
+    //             currency: 'BRL'
+    //         }).format(precoTotal);
+    
+    //         const valorComEspaco = precoTotalFormatado.replace('R$', '').trim();
+    
+    //         // Atualizando o valor na tela
+    //         const precoElement = document.getElementById('preco');
+    //         if (precoElement) {
+    //             precoElement.innerText = valorComEspaco; // Preço total formatado
+    //         } else {
+    //             console.error("Elemento com ID 'preco' não encontrado.");
+    //         }
+    
+    //         // Logs para depuração
+    //         console.log("Valor do produto (por unidade):", valorProduto);
+    //         console.log("Quantidade selecionada:", quantidade);
+    //         console.log("Preço total calculado:", precoTotal);
+    
+    //     } catch (error) {
+    //         console.error("Erro ao atualizar o preço:", error);
+    //     }
+    // },    
+    
     atualizarPreco: () => {
-        // Obtendo os dados do produto do sessionStorage
+        // Obtendo dados do produto do sessionStorage
         let string = sessionStorage.getItem('item_data');
         let item = string.split(",");
-        
-        // Obtendo o select e a opção selecionada
-        const select = document.getElementById('metros'); // Certifique-se de que o ID do select está correto
-        const optionSelected = select.options[select.selectedIndex];
-        
-        // Obtendo o preço atualizado da opção selecionada
-        const valorProduto = parseFloat(optionSelected.getAttribute('data-price')); // Preço da medida selecionada
-        
+        const valorProduto = parseFloat(item[3]); // Preço de 1 metro do produto
+    
         // Obtendo a quantidade selecionada pelo usuário
         const quantidade = parseInt(document.getElementById('inputQuantity').innerText); // Certifique-se de que este campo existe no HTML
-        
-        // Calculando o preço total com base na quantidade
-        const precoTotal = valorProduto * quantidade;
-        
-        // Formatando o preço total para o formato brasileiro (R$)
-        const precoTotalFormatado = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        }).format(precoTotal);
-        const valorComEspaco = precoTotalFormatado.replace('R$', '');
+    
+        // Calculando o preço total com base na metragem e na quantidade
+        const precoTotal = (valorProduto * quantidade);
+    
         // Atualizando o valor na tela
-        document.getElementById('preco').innerText = valorComEspaco; // Preço total formatado
-        
+        document.getElementById('preco').innerText = `${precoTotal.toFixed(2)}`; // Preço total formatado
+    
         // Logs para depuração
-        console.log("Valor do produto (por unidade):", valorProduto);
-        console.log("Quantidade selecionada:", quantidade);
-        console.log("Preço total calculado:", precoTotal);
+        console.log("Valor do produto (por metro):", valorProduto);
+        console.log("Quantidade selecionada >>>>>", quantidade); // Quantidade de itens
+        console.log("Preço total >>>>>", precoTotal); // Preço total calculado
     },
     // Atualizar o carrinho na interface do usuário
     atualizarCarrinho: function() {
@@ -236,61 +297,72 @@ loja.metodos = {
         }
     
         let proximosElementos;
-        if (index + 4 > MENU.length) {
-            // Se o índice estiver próximo do final do array, retorna os 4 elementos anteriores
+        if (index + 4 > MENU.length) { // Se o índice estiver próximo do final do array, retorna os 4 elementos anteriores
             proximosElementos = MENU.slice(Math.max(0, index - 4), index);
-        } else {
-            // Retorna os 4 próximos elementos
+        } else { // Retorna os 4 próximos elementos
             proximosElementos = MENU.slice(index + 1, index + 5);
         }
         
         loja.metodos.obterItensRelacionado(proximosElementos);
     },
 
-    adicionarAoCarrinho: (produtoAtualizado) => {
+    adicionarAoCarrinho: (value) => {
         // Garante que a quantidade inicial seja 1, caso não tenha sido definida
-        let quantidade = 1; 
+        // let quantidade = 1; 
     
         // Tenta buscar a quantidade atual do input (caso o usuário tenha alterado)
+        
+        // if (quantityLabel) {
+        //     quantidade = parseInt(quantityLabel.textContent) || 1;
+        // }
+    
+        // // Verifica se o produto foi passado corretamente
+        // if (!produtoAtualizado || Object.keys(produtoAtualizado).length === 0) {
+        //     console.error("Nenhum produto foi selecionado ou os dados estão incompletos.");
+        //     return;
+        // }
+    
+        // // Atribui a quantidade ao produto
+        // produtoAtualizado.quantidade = quantidade;
+    
+        // // Carrega o carrinho do sessionStorage
+        // let carrinho = JSON.parse(sessionStorage.getItem('carrinho')) || [];
+    
+        // // Verifica se o produto já existe no carrinho
+        // const produtoExistente = carrinho.find((item) =>
+        //     item.id === produtoAtualizado.id && item.codigo === produtoAtualizado.codigo
+        // );
+    
+        // if (produtoExistente) {
+        //     // Se existe, incrementa a quantidade
+        //     produtoExistente.quantidade += quantidade;
+        // } else {
+        //     // Se não existe, adiciona ao carrinho com quantidade 1
+        //     carrinho.push(produtoAtualizado);
+        // }
         let quantityLabel = document.getElementById('inputQuantity');
-        if (quantityLabel) {
-            quantidade = parseInt(quantityLabel.textContent) || 1;
-        }
-    
-        // Verifica se o produto foi passado corretamente
-        if (!produtoAtualizado || Object.keys(produtoAtualizado).length === 0) {
-            console.error("Nenhum produto foi selecionado ou os dados estão incompletos.");
-            return;
-        }
-    
-        // Atribui a quantidade ao produto
-        produtoAtualizado.quantidade = quantidade;
-    
-        // Carrega o carrinho do sessionStorage
-        let carrinho = JSON.parse(sessionStorage.getItem('carrinho')) || [];
-    
-        // Verifica se o produto já existe no carrinho
-        const produtoExistente = carrinho.find((item) =>
-            item.id === produtoAtualizado.id && item.codigo === produtoAtualizado.codigo
-        );
-    
-        if (produtoExistente) {
-            // Se existe, incrementa a quantidade
-            produtoExistente.quantidade += quantidade;
-        } else {
-            // Se não existe, adiciona ao carrinho com quantidade 1
-            carrinho.push(produtoAtualizado);
-        }
-    
+        quantidade = parseInt(quantityLabel.textContent);
+
+        id = (parseInt(value)) - 1
+        var itemParaAdicionar = MENU[id];
+        carrinhoDeCompras.adicionarItem({
+        img: itemParaAdicionar.img,
+        id: itemParaAdicionar.id,
+        name: itemParaAdicionar.name,
+        preco: itemParaAdicionar.price,
+        quantidade: quantidade,
+        total: quantidade
+        });
+
         // Salva o carrinho atualizado no sessionStorage
-        sessionStorage.setItem('carrinho', JSON.stringify(carrinho));
-        console.log("Produto adicionado ao carrinho:", produtoAtualizado);
-        // alert("Produto adicionado ao carrinho com sucesso!"); // Test
-    
-        // Atualiza a interface
-        carrinhoDeCompras.carregarCarrinho();
+        
+        
+        carrinhoDeCompras.salvarCarrinho();
+        carrinhoDeCompras.carregarCarrinho(); // Atualiza a interface
         loja.metodos.atualizarBadge(carrinhoDeCompras.calcularTotalQuantidade());
+
         loja.metodos.mensagem('Item adicionado ao carrinho', 'green');
+
     },
 
     atualizarBadge:(value) =>{
@@ -368,13 +440,15 @@ loja.metodos = {
         // Obter o item correspondente do MENU usando o `value`
         const item = MENU.find(produto => produto.id === value);
         if (!item) {
-            console.error("Item não encontrado no MENU.");
+            
+            console.warning("Item não encontrado no MENU.");
             return;
+            ;
         }
         // Salva os dados no sessionStorage e no localStorage
         localStorage.setItem('itemSelecionado', JSON.stringify(itemParaSalvar));
         // loja.metodos.verPaginaDoItem('\${opcoes_medidas}');
-        console.log("Item armazenado com sucesso:", itemParaSalvar);
+        console.warning("Item armazenado com sucesso:", itemParaSalvar)
     },
 
     
@@ -411,7 +485,7 @@ loja.templates = {  // R$ \${price}
                                 </span>
                                 <div class="m-2">
                                 <!-- onchange="loja.metodos.atualizarPreco(\${id})" -->
-                                    <select id="metros" class="form-select" aria-label="Selecione a medida"></select>
+                                    <select onclick="loja.metodos.atualizarPreco(\${id})" id="metros" class="form-select" aria-label="Selecione a medida"></select>
                                 </div>
                             </div>
                             <div class="product-quantity py-2">
@@ -435,10 +509,6 @@ loja.templates = {  // R$ \${price}
                                     <li id="valueCodigo">Código: \${codigo}</li>
                                 </ul>
                             </div>
-                            <!-- <button class="add-to-cart-btn tolltip m-2" 
-                                onclick="loja.metodos.adicionarAoCarrinho(\${id})">
-                                <div> Adicionar ao carrinho +<i class="bi-cart-fill me-1"></i></div> 
-                            </button> -->
                             <button 
                                 class="add-to-cart-btn tolltip m-2" 
                                 onclick="loja.metodos.adicionarAoCarrinho(\${id})">
@@ -486,7 +556,7 @@ loja.templates = {  // R$ \${price}
             <!-- Product actions-->
             <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                <a class="custom-button mt-auto" href="item.html" onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}',parseFloat('\${price}'.replace(',','.')),'\${marca}','\${medida}','\${categoria}','\${codigo}'])"
+                <a class="custom-button mt-auto" href="item.html" onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}', parseInt('\${id}'), parseFloat('\${price}'.replace(',','.')),'\${marca}','\${medida}','\${categoria}','\${codigo}'])"
                 >Comprar</a></div>
             </div>
         </div>
