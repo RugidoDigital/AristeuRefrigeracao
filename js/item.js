@@ -33,6 +33,7 @@ loja.eventos = {
         loja.metodos.atualizarBadge(carrinhoDeCompras.calcularTotalQuantidade());
         
         loja.metodos.atualizarPreco();
+        loja.metodos.ProdutoSelected();
         
     }
 }
@@ -54,7 +55,7 @@ loja.metodos = {
         let item = string.split(",");
         console.log("Item passado ", item);
         console.log("Item ", item[0]);
-
+        console.log("Item ", item[8,0]);
         loja.metodos.getProximosElementos(parseInt(item[2]) - 1);
     
         // Formata o preço
@@ -71,196 +72,166 @@ loja.metodos = {
             .replace(/\${categoria}/g, item[6]) // CATEGORIA - PRODUTO
             .replace(/\${sub_categoria}/g, item[6]) // SUB-CATEGORIA - PRODUTO
             .replace(/\${codigo}/g, item[7]) // CÓDIGO - PRODUTO
+            .replace(/\${opcoes_medidas}/g, item[8])
+            .replace(/\${value}/g, item[8,0]);
         
         // Adiciona os itens ao #itensProduto
         $("#itensProduto").append(temp);
     },
 
-    ProdutoSelected:() => {
+    ProdutoSelected: () => {
         let string = sessionStorage.getItem('item_data');
-        const NumberID = string.split(","); // Chama a JSON do ID selecionado em Comprar
+        const NumberID = string.split(","); // Obtém o JSON do ID selecionado
         const NumberItem = parseInt(NumberID[2], 10); // Seleciona apenas o número do ID
-        let optionsHTML = `<option disabled selected>Selecionar medida:</option>'`; 
-        const idDesejado = NumberItem; // Substitua por qualquer ID para teste
-        
+        let optionsHTML = `<option disabled selected>Selecionar medida:</option>`;
+        const idDesejado = NumberItem;
+    
         const produto = MENU.find((item) => item.id === idDesejado);
         if (produto) {
             produto.opcoes_medidas.forEach((opcao) => {
                 optionsHTML += `
-                <option value="${opcao.value}" data-imagem="${opcao.img}" 
-                    data-medida="${opcao.medida}" data-marca="${opcao.marca}" 
-                    data-price="${opcao.price}" data-codigo="${opcao.codigo}">
-                        ${opcao.descricao}
-                </option>`;
+                    <option value="${opcao.value}" data-imagem="${opcao.img}" 
+                        data-medida="${opcao.medida}" data-marca="${opcao.marca}" 
+                        data-price="${opcao.price}" data-codigo="${opcao.codigo}">
+                            ${opcao.descricao}
+                    </option>
+                `;
             });
         }
-
-        document.getElementById('metros').innerHTML = optionsHTML; //Mostra as opções no select
-        // Seleciona o elemento select
-        const select = document.getElementById('metros'); // SelectOptions - Produtos
-        const quantityLabel = document.getElementById('inputQuantity');// O ID do seletor de quantidade
+    
+        document.getElementById('metros').innerHTML = optionsHTML; // Atualiza o select
+    
+        // Elementos para atualizar as informações do produto
+        const select = document.getElementById('metros');
+        let quantityLabel = document.getElementById('inputQuantity');
+        
         quantityLabel.textContent = 1;
-        // Seleciona os elementos que serão alterados
-        const Img = document.getElementById('valueImg'); // Imagem
-        const Medida = document.getElementById('valueMed'); // Medida
-        const Marc = document.getElementById('valueMarca'); // Marca
-        const Price = document.getElementById('preco'); // Preço
-        const Cod = document.getElementById('valueCodigo'); // Código
-        
-        
-
-        // Adiciona um evento de mudança (change) ao select
-        
+    
+        const Img = document.getElementById('valueImg');
+        const Medida = document.getElementById('valueMed');
+        const Marca = document.getElementById('valueMarca');
+        const Price = document.getElementById('preco');
+        const Codigo = document.getElementById('valueCodigo');
+    
         select.addEventListener('change', () => {
-            // Altera a quantidade de volta para 1 
-            // sempre que a medida for alterada
-            
-            // Obtém a opção selecionada
             const optionSelected = select.options[select.selectedIndex];
-            // Pega os atributos data-imagem e data-medida da opção
+    
+            // Pega os atributos da opção selecionada
             const img = optionSelected.getAttribute('data-imagem');
             const medida = optionSelected.getAttribute('data-medida');
             const marca = optionSelected.getAttribute('data-marca');
             const Newprice = optionSelected.getAttribute('data-price');
             const codigo = optionSelected.getAttribute('data-codigo');
-
-            // Formata o preço para o formato monetário
+    
+            // Formata o preço
             const price = new Intl.NumberFormat('pt-BR', {
-                minimumFractionDigits: 2, // Garante sempre duas casas decimais
-                maximumFractionDigits: 2,
+                style: 'currency',
+                currency: 'BRL',
             }).format(Newprice);
-
-            // imagemProduto.src = newImg;
-            Img.textContent = `${img}`;
-            Marc.textContent = `Marca: ${marca}`;
+    
+            // Atualiza as informações
+            Img.textContent = img;
+            Marca.textContent = `Marca: ${marca}`;
             Medida.textContent = `Medida: ${medida}`;
-            Price.textContent = `${price}`
-            Cod.textContent = `Código: ${codigo}`;
+            Price.textContent = price;
+            Codigo.textContent = `Código: ${codigo}`;
         });
-
-        // Configura o evento de clique no botão "Adicionar ao Carrinho"
+        console.log("ID do produto >>>", produto.id,);
+        // Evento para adicionar ao carrinho
         document.querySelector('.add-to-cart-btn').addEventListener('click', () => {
             const optionSelected = select.options[select.selectedIndex];
+    
+            if (!optionSelected.value) {
+                loja.metodos.mensagem('Selecione uma medida antes de adicionar ao carrinho.', 'red');
+                return;
+            }
 
+            const produtoAtualizado = {
+                id: produto.id,
+                name: produto.name,
+                img: optionSelected.getAttribute('data-imagem'),
+                medida: optionSelected.getAttribute('data-medida'),
+                marca: optionSelected.getAttribute('data-marca'),
+                preco: parseFloat(optionSelected.getAttribute('data-price')),
+                codigo: optionSelected.getAttribute('data-codigo'),
+                quantidade: parseInt(quantityLabel.textContent),
+                categoria: produto.categoria,
+                sub_categoria: produto.sub_categoria,
+                value: produto.value,
+            };
             
-                // Verifica se uma medida foi selecionada
-                let produtoAtualizado = {};
-                if (optionSelected.value) {
-                    // Usa os dados da opção selecionada
-                    produtoAtualizado = {
-                        id: produto.id,
-                        name: produto.name,
-                        img: optionSelected.getAttribute('data-imagem'),
-                        medida: optionSelected.getAttribute('data-medida'),
-                        marca: optionSelected.getAttribute('data-marca'),
-                        preco: parseFloat(optionSelected.getAttribute('data-price')),
-                        codigo: optionSelected.getAttribute('data-codigo'),
-                        quantidade: produto.quantidade,
-                        categoria: produto.categoria,
-                        sub_categoria: produto.sub_categoria,
-                        opcoes_medidas: produto.opcoes_medidas,
-                    };
-                } else {
-                    produtoAtualizado = {
-                        img: produto.img,
-                        id: produto.id,
-                        name: produto.name,
-                        preco: produto.price,
-                        quantidade: quantidade,
-                        codigo: produto.codigo,
-                        categoria: produto.categoria,
-                        sub_categoria: produto.sub_categoria,
-                        opcoes_medidas: produto.opcoes_medidas,
-                    };
-                }
-            loja.metodos.adicionarAoCarrinho(produtoAtualizado);// Passa o produto atualizado para o método adicionarAoCarrinho
+            loja.metodos.adicionarAoCarrinho(produtoAtualizado);
+            console.log("produtoAtualizado >>>", produtoAtualizado);
+            
         });
     },
 
-    // atualizarPreco: () => {
-    //     try {
-    //         // Obtendo os dados do produto do sessionStorage
-    //         const string = sessionStorage.getItem('item_data');
-    //         if (!string) {
-    //             console.error("Nenhum dado encontrado no sessionStorage.");
-    //             return;
-    //         }
-    //         const item = string.split(",");
-    
-    //         // Obtendo o select e a opção selecionada
-    //         const select = document.getElementById('metros');
-    //         if (!select) {
-    //             console.error("Elemento select com ID 'metros' não encontrado.");
-    //             return;
-    //         }
-    //         const optionSelected = select.options[select.selectedIndex];
-    
-    //         // Determinando o preço do produto (por unidade)
-    //         let valorProduto = 0;
-    //         if (optionSelected && optionSelected.hasAttribute('data-price')) {
-    //             valorProduto = parseFloat(optionSelected.getAttribute('data-price'));
-    //         } else {
-    //             valorProduto = parseFloat(item[3]) || 0; // Valor padrão
-    //             console.log("Nenhuma medida selecionada. Usando valor inicial ou padrão do produto.");
-    //         }
-    
-    //         // Obtendo a quantidade selecionada pelo usuário
-    //         const quantityElement = document.getElementById('inputQuantity');
-    //         if (!quantityElement) {
-    //             console.error("Elemento com ID 'inputQuantity' não encontrado.");
-    //             return;
-    //         }
-    //         const quantidade = parseInt(quantityElement.innerText) || 1; // Valor padrão para quantidade
-    
-    //         // Calculando o preço total com base na quantidade
-    //         const precoTotal = valorProduto * quantidade;
-    
-    //         // Formatando o preço total para o formato brasileiro (R$)
-    //         const precoTotalFormatado = new Intl.NumberFormat('pt-BR', {
-    //             style: 'currency',
-    //             currency: 'BRL'
-    //         }).format(precoTotal);
-    
-    //         const valorComEspaco = precoTotalFormatado.replace('R$', '').trim();
-    
-    //         // Atualizando o valor na tela
-    //         const precoElement = document.getElementById('preco');
-    //         if (precoElement) {
-    //             precoElement.innerText = valorComEspaco; // Preço total formatado
-    //         } else {
-    //             console.error("Elemento com ID 'preco' não encontrado.");
-    //         }
-    
-    //         // Logs para depuração
-    //         console.log("Valor do produto (por unidade):", valorProduto);
-    //         console.log("Quantidade selecionada:", quantidade);
-    //         console.log("Preço total calculado:", precoTotal);
-    
-    //     } catch (error) {
-    //         console.error("Erro ao atualizar o preço:", error);
-    //     }
-    // },    
-    
     atualizarPreco: () => {
-        // Obtendo dados do produto do sessionStorage
-        let string = sessionStorage.getItem('item_data');
-        let item = string.split(",");
-        const valorProduto = parseFloat(item[3]); // Preço de 1 metro do produto
+        try {
+            // Obtendo os dados do produto do sessionStorage
+            const string = sessionStorage.getItem('item_data');
+            if (!string) {
+                console.error("Nenhum dado encontrado no sessionStorage.");
+                return;
+            }
+            const item = string.split(",");
     
-        // Obtendo a quantidade selecionada pelo usuário
-        const quantidade = parseInt(document.getElementById('inputQuantity').innerText); // Certifique-se de que este campo existe no HTML
+            // Obtendo o select e a opção selecionada
+            const select = document.getElementById('metros');
+            if (!select) {
+                console.error("Elemento select com ID 'metros' não encontrado.");
+                return;
+            }
+            const optionSelected = select.options[select.selectedIndex];
+            informacao_produtos = document.getElementById('informacao_produtos');
+            // Determinando o preço do produto (por unidade)
+            let valorProduto = 0;
+            if (optionSelected && optionSelected.hasAttribute('data-price')) {
+                valorProduto = parseFloat(optionSelected.getAttribute('data-price'));
+                informacao_produtos.style.display='block';
+            } else {
+                informacao_produtos.style.display='none'; // Se nenhuma medida selecionada, display none no preço
+                console.log("Nenhuma medida selecionada!");
+            }
     
-        // Calculando o preço total com base na metragem e na quantidade
-        const precoTotal = (valorProduto * quantidade);
+            // Obtendo a quantidade selecionada pelo usuário
+            const quantityElement = document.getElementById('inputQuantity');
+            if (!quantityElement) {
+                loja.metodos.mensagem('Nenhuma medida selecionada!', 'red');
+                return;
+            }
+            const quantidade = parseInt(quantityElement.innerText) || 1; // Valor padrão para quantidade
     
-        // Atualizando o valor na tela
-        document.getElementById('preco').innerText = `${precoTotal.toFixed(2)}`; // Preço total formatado
+            // Calculando o preço total com base na quantidade
+            const precoTotal = valorProduto * quantidade;
     
-        // Logs para depuração
-        console.log("Valor do produto (por metro):", valorProduto);
-        console.log("Quantidade selecionada >>>>>", quantidade); // Quantidade de itens
-        console.log("Preço total >>>>>", precoTotal); // Preço total calculado
+            // Formatando o preço total para o formato brasileiro (R$)
+            const precoTotalFormatado = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(precoTotal);
+    
+            const valorComEspaco = precoTotalFormatado.replace('R$', '').trim();
+    
+            // Atualizando o valor na tela
+            const precoElement = document.getElementById('preco');
+            if (precoElement) {
+                precoElement.innerText = valorComEspaco; // Preço total formatado
+            } else {
+                console.error("Elemento com ID 'preco' não encontrado.");
+                loja.metodos.mensagem('Nenhuma medida selecionada!', 'red');
+            }
+    
+            // Logs para depuração
+            console.log("Valor do produto (por unidade):", valorProduto);
+            console.log("Quantidade selecionada:", quantidade);
+            console.log("Preço total calculado:", precoTotal);
+    
+        } catch (error) {
+            console.error("Erro ao atualizar o preço:", error);
+        }
     },
+    
     // Atualizar o carrinho na interface do usuário
     atualizarCarrinho: function() {
         // Aqui você pode implementar a lógica para atualizar a interface do carrinho na sua página HTML
@@ -285,6 +256,8 @@ loja.metodos = {
                 .replace(/\${categoria}/g, itens[i].categoria)
                 .replace(/\${sub_categoria}/g, itens[i].sub_categoria)
                 .replace(/\${codigo}/g, itens[i].codigo)
+                .replace(/\${opcoes_medidas}/g, itens[i].opcoes_medidas)
+                .replace(/\${value}/g, itens[i].value);
     
             // Adiciona os itens ao #itensProdutos
             $("#itensProdutos").append(temp);
@@ -306,64 +279,23 @@ loja.metodos = {
         loja.metodos.obterItensRelacionado(proximosElementos);
     },
 
-    adicionarAoCarrinho: (value) => {
-        // Garante que a quantidade inicial seja 1, caso não tenha sido definida
-        // let quantidade = 1; 
-    
-        // Tenta buscar a quantidade atual do input (caso o usuário tenha alterado)
+    adicionarAoCarrinho: (produto) => {
+        if (!produto || !produto.id) {
+                loja.metodos.mensagem('Item adicionado ao carrinho', 'green');
+                // loja.metodos.mensagem('Erro ao adicionar o produto ao carrinho.', 'red');
+            return;
+        }
+        console.log(produto);
+        carrinhoDeCompras.adicionarItem(produto);;
         
-        // if (quantityLabel) {
-        //     quantidade = parseInt(quantityLabel.textContent) || 1;
-        // }
-    
-        // // Verifica se o produto foi passado corretamente
-        // if (!produtoAtualizado || Object.keys(produtoAtualizado).length === 0) {
-        //     console.error("Nenhum produto foi selecionado ou os dados estão incompletos.");
-        //     return;
-        // }
-    
-        // // Atribui a quantidade ao produto
-        // produtoAtualizado.quantidade = quantidade;
-    
-        // // Carrega o carrinho do sessionStorage
-        // let carrinho = JSON.parse(sessionStorage.getItem('carrinho')) || [];
-    
-        // // Verifica se o produto já existe no carrinho
-        // const produtoExistente = carrinho.find((item) =>
-        //     item.id === produtoAtualizado.id && item.codigo === produtoAtualizado.codigo
-        // );
-    
-        // if (produtoExistente) {
-        //     // Se existe, incrementa a quantidade
-        //     produtoExistente.quantidade += quantidade;
-        // } else {
-        //     // Se não existe, adiciona ao carrinho com quantidade 1
-        //     carrinho.push(produtoAtualizado);
-        // }
-        let quantityLabel = document.getElementById('inputQuantity');
-        quantidade = parseInt(quantityLabel.textContent);
-
-        id = (parseInt(value)) - 1
-        var itemParaAdicionar = MENU[id];
-        carrinhoDeCompras.adicionarItem({
-        img: itemParaAdicionar.img,
-        id: itemParaAdicionar.id,
-        name: itemParaAdicionar.name,
-        preco: itemParaAdicionar.price,
-        quantidade: quantidade,
-        total: quantidade
-        });
-
-        // Salva o carrinho atualizado no sessionStorage
-        
-        
+        // Salva e atualiza o carrinho
         carrinhoDeCompras.salvarCarrinho();
         carrinhoDeCompras.carregarCarrinho(); // Atualiza a interface
-        loja.metodos.atualizarBadge(carrinhoDeCompras.calcularTotalQuantidade());
-
-        loja.metodos.mensagem('Item adicionado ao carrinho', 'green');
-
+        loja.metodos.atualizarBadge(carrinhoDeCompras.calcularTotalQuantidade()); // Atualiza o badge do carrinho
+        loja.metodos.mensagem('Item adicionado ao carrinho', 'green'); // Mensagem de sucesso
     },
+        
+      
 
     atualizarBadge:(value) =>{
         var badgeSpan = document.getElementById('badgeCart');
@@ -477,43 +409,45 @@ loja.templates = {  // R$ \${price}
                                 \${name}
                             </div>
                         </h5>
+                        <div class="m-2">
+                        <!-- onchange="loja.metodos.atualizarPreco(\${id})" -->
+                            <select onclick="loja.metodos.atualizarPreco(\${id})" id="metros" class="form-select" aria-label="Selecione a medida"></select>
+                        </div>
                         <p class="card-text">
-                            <div class="product-price">
-                                <span class="price">
-                                    <span class="currency">R$</span>
-                                    <span class="value me-3" id="preco">\${price}</span>
-                                </span>
-                                <div class="m-2">
-                                <!-- onchange="loja.metodos.atualizarPreco(\${id})" -->
-                                    <select onclick="loja.metodos.atualizarPreco(\${id})" id="metros" class="form-select" aria-label="Selecione a medida"></select>
+                            <div id="informacao_produtos">
+                                <div class="product-price">
+                                    <span class="price">
+                                        <span class="currency">R$</span>
+                                        <span class="value me-3" id="preco"></span>
+                                    </span>
                                 </div>
-                            </div>
-                            <div class="product-quantity py-2">
-                                <p class="quantity-label-item">Quantidade: </p>
-                                <div class=" quantity-control me-2" onclick="loja.metodos.atualizarPreco(\${id})">
-                                    <button class="btn-cart-control btn-subtract me-2" 
-                                    onclick="loja.metodos.btnSubtract()"
-                                    >-</button>
-                                    <span class="quantity-label me-2" id="inputQuantity">1</span>
-                                    <button class="btn-cart-control btn-add"
-                                    onclick="loja.metodos.btnAdd()"
-                                    >+</button>
+                                <div class="product-quantity py-2">
+                                    <p class="quantity-label-item">Quantidade: </p>
+                                    <div class=" quantity-control me-2" onclick="loja.metodos.atualizarPreco(\${id})">
+                                        <button class="btn-cart-control btn-subtract me-2" 
+                                        onclick="loja.metodos.btnSubtract()"
+                                        >-</button>
+                                        <span class="quantity-label me-2" id="inputQuantity">1</span>
+                                        <button class="btn-cart-control btn-add"
+                                        onclick="loja.metodos.btnAdd()"
+                                        >+</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="product-description">
-                                <p>Sobre este item</p>
-                                <ul><!-- Informações do produto-->
-                                    <li id="valueMarca">Marca: \${marca}</li>
-                                    <li>Categoria: \${categoria}</li>
-                                    <li id="valueMed">Medida: \${medida}</li>
-                                    <li id="valueCodigo">Código: \${codigo}</li>
-                                </ul>
-                            </div>
-                            <button 
-                                class="add-to-cart-btn tolltip m-2" 
-                                onclick="loja.metodos.adicionarAoCarrinho(\${id})">
-                                <div> Adicionar ao carrinho +<i class="bi-cart-fill me-1"></i></div> 
-                            </button>
+                                <div class="product-description">
+                                    <p>Sobre este item</p>
+                                    <ul><!-- Informações do produto-->
+                                        <li id="valueMarca">Marca: \${marca}</li>
+                                        <li>Categoria: \${categoria}</li>
+                                        <li id="valueMed">Medida: \${medida}</li>
+                                        <li id="valueCodigo">Código: \${codigo}</li>
+                                    </ul>
+                                </div>
+                                <button 
+                                    class="add-to-cart-btn tolltip m-2" 
+                                    onclick="loja.metodos.adicionarAoCarrinho(\${id})">
+                                    <div> Adicionar ao carrinho +<i class="bi-cart-fill me-1"></i></div> 
+                                </button>
+                            <div/>
                         </p>
                     </div>
                 </div>

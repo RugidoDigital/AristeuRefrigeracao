@@ -130,7 +130,7 @@ loja.metodos = {
                 .replace(/\${medida}/g, itemExibidosNoMenu[i].medida)
                 .replace(/\${categoria}/g, itemExibidosNoMenu[i].categoria)
                 .replace(/\${codigo}/g, itemExibidosNoMenu[i].codigo)
-                //.replace(/\${opcoes_medidas}/g, itemExibidosNoMenu[i].opcoes_medidas)
+                // .replace(/\${opcoes_medidas}/g, itemExibidosNoMenu[i].opcoes_medidas);
             $("#itensProdutos").append(temp);
         }
 
@@ -317,7 +317,7 @@ loja.templates = {
                                 <ul>
                                     <li>Marca: \${marca}</li>
                                     <li>Categoria: \${categoria}</li>
-                                    <li>Código: \${codigo}</li>
+                                    <!-- <li>Código: \${codigo}</li> -->
                                 </ul>
                             </div>
                         </figcaption>			
@@ -328,17 +328,17 @@ loja.templates = {
                     <div class="text-center">
                         <!-- Product name-->
                         <h6>\${name}</h6>
-                        <!-- Product price-->
+                        <!-- Product price
                         <span class="price">
                             <span class="currency">R$</span>
                             <span class="value">\${price-show}</span>
-                        </span>
+                        </span>-->
                     </div>
                 </div>
                 <!-- Product actions-->
                 <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                     <div class="text-center">
-                        <a class="custom-button mt-auto" href="item.html" onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}','\${id}','\${price}','\${marca}','\${medida}','\${categoria}','\${codigo}'])">Comprar</a>
+                        <a class="custom-button mt-auto" href="item.html" onclick="loja.metodos.verPaginaDoItem(['\${img}','\${name}',parseInt('\${id}'),'\${price}','\${marca}','\${medida}','\${categoria}','\${codigo}'])">Comprar</a>
                         </a>
                     </div>
                 </div>

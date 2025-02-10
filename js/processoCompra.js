@@ -25,6 +25,7 @@ loja.metodos = {
             window.location.href = '/';
         }
     },
+
     atualizarBadge:(value) =>{
         //var badgeSpan = document.getElementById('badgeCart');
         //badgeSpan.textContent = value;
@@ -86,14 +87,14 @@ loja.metodos = {
         loja.metodos.atualizarValorTotal(loja.metodos.obterValorTotal());
     },    
 
-    btnSubtract: (id, codigo) =>{
-        let quantityLabel = document.getElementById('quantity-label-' + id + codigo);
+    btnSubtract: (id) =>{
+        let quantityLabel = document.getElementById('quantity-label-' + id);
         quantidade = parseInt(quantityLabel.textContent);
 
         if (quantidade > 1) {
             quantidade--;
             quantityLabel.textContent = quantidade;
-            carrinhoDeCompras.alterarQuantidade(id, codigo, quantidade);
+            carrinhoDeCompras.alterarQuantidade(id, quantidade);
             loja.metodos.atualizarValorTotal(loja.metodos.obterValorTotal());
 
         }
@@ -101,21 +102,21 @@ loja.metodos = {
         
     },
 
-    btnAdd: (id, codigo) =>{
-        let quantityLabel = document.getElementById('quantity-label-' + id + codigo);// Seleciona o rótulo com ID e código
+    btnAdd: (id) =>{
+        let quantityLabel = document.getElementById('quantity-label-' + id);// Seleciona o rótulo com ID e código
         quantidade = parseInt(quantityLabel.textContent);
 
         quantidade++;
         quantityLabel.textContent = quantidade;
 
-        carrinhoDeCompras.alterarQuantidade(id, codigo, quantidade);
+        carrinhoDeCompras.alterarQuantidade(id, quantidade);
         loja.metodos.atualizarValorTotal(loja.metodos.obterValorTotal());
 
     
     },
-    btnRemove: (id, codigo) =>{
+    btnRemove: (id) =>{
     
-        carrinhoDeCompras.removerItem(id, codigo)
+        carrinhoDeCompras.removerItem(id)
         loja.metodos.atualizarBadge(carrinhoDeCompras.calcularTotalQuantidade());
         loja.metodos.obterProdutosCarrinho();
         loja.metodos.atualizarValorTotal(loja.metodos.obterValorTotal());
@@ -188,7 +189,7 @@ loja.templates = {
                         <!-- Controle de quantidade -->
                         <div onclick="loja.metodos.obterProdutosCarrinho()" class="quantity-control d-flex justify-content-center align-items-center" style="width: 100px">
                             <button class="btn-cart-control btn-subtract" onclick="loja.metodos.btnSubtract(\${id})">-</button>
-                            <span class="quantity-label mx-2" id="quantity-label-\${id}\${codigo}">\${qtd}</span>
+                            <span class="quantity-label mx-2" id="quantity-label-\${id}">\${qtd}</span>
                             <button class="btn-cart-control btn-add" onclick="loja.metodos.btnAdd(\${id})">+</button>
                         </div>
                     </div>
